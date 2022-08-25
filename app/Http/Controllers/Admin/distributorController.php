@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
-use App\Http\Requests\Admin\distributorRequest;
+use App\Http\Requests\Admin\DistributorCreateRequest;
+use App\Http\Requests\Admin\DistributorUpdateRequest;
 use App\Models\Role;
 use App\Models\Territory;
 use App\Models\User;
@@ -21,7 +22,7 @@ class distributorController extends Controller
         return view('Admin.Distributor.create');
     }
 
-    public function store(distributorRequest $request, User $user)
+    public function store(DistributorCreateRequest $request, User $user)
     {
         $user->create($request->validated())->assignRole(Role::ROLE_DISTRIBUTOR);
 
@@ -30,28 +31,27 @@ class distributorController extends Controller
             ->with('success', 'New Distributor has been created');
     }
 
-    public function edit(AdminRequest $request, User $user)
+    public function edit(AdminRequest $request, User $distributor)
     {
-        dd($user);
         return view('Admin.Distributor.edit')
         ->with([
-            'user' => $user,
+            'distributor' => $distributor,
             'territories' => Territory::query()->get()
         ]);
     }
 
-    public function update(DistributorRequest $request, User $user)
+    public function update(DistributorUpdateRequest $request, User $distributor)
     {
-        $user->update($request->validated());
+        $distributor->update($request->validated());
 
         return redirect()
             ->route('distributor.index')
             ->with('success', 'Distributor has been updated');
     }
 
-    public function destroy(AdminRequest $request, User $user)
+    public function destroy(AdminRequest $request, User $distributor)
     {
-        $user->delete();
+        $distributor->delete();
 
         return back()
             ->with('success', 'Distributor has been deleted');
