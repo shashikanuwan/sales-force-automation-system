@@ -66,6 +66,11 @@
                     {{ __('Distributor Registration') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
+                    <i class="fas fa-user-alt mr-3"></i>
+                    {{ __('Product Registration') }}
+                </x-responsive-nav-link>
+
             </nav>
             @if (Route::has('login'))
                 @auth
