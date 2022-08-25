@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Distributor\DistributorDashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,6 +37,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:distributor'])->group(function () {
     Route::get('/distributor/dashboard', DistributorDashboardController::class)
         ->name('distributor.dashboard');
+});
+
+Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
+    Route::resource('order', OrderController::class);
 });
 
 require __DIR__ . '/auth.php';

@@ -41,6 +41,7 @@
                 <a class="text-white text-xl font-semibold uppercase hover:text-gray-300">{{ Auth::user()->name }}</a>
             </div>
             <nav class="text-white text-base font-semibold pt-3">
+                @role('admin')
                 <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     {{ __('Dashboard') }}
@@ -70,6 +71,24 @@
                     <i class="fas fa-user-alt mr-3"></i>
                     {{ __('Product Registration') }}
                 </x-responsive-nav-link>
+
+                <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                    <i class="fas fa-user-alt mr-3"></i>
+                    {{ __('Order Registration') }}
+                </x-responsive-nav-link>
+                @endrole
+
+                @role('distributor')
+                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('distributor.dashboard')">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                    <i class="fas fa-user-alt mr-3"></i>
+                    {{ __('Order Registration') }}
+                </x-responsive-nav-link>
+                @endrole
 
             </nav>
             @if (Route::has('login'))
