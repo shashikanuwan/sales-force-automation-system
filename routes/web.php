@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\distributorController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\TerritoryController;
 use App\Http\Controllers\Admin\ZoneController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/zone' => ZoneController::class,
         '/admin/region' => RegionController::class,
         '/admin/territory' => TerritoryController::class,
+        '/admin/distributor' => distributorController::class,
     ]);
 });
 

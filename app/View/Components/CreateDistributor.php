@@ -6,20 +6,17 @@ use App\Models\Territory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
-class FetchTerritory extends Component
+class CreateDistributor extends Component
 {
     public Collection $territories;
 
     public function __construct()
     {
-        $this->territories = Territory::query()
-            ->with('region.zone')
-            ->orderBy('id', 'DESC')
-            ->get();
+        $this->territories = Territory::query()->get();
     }
 
     public function render()
     {
-        return view('components.fetch-territory');
+        return view('components.create-distributor');
     }
 }

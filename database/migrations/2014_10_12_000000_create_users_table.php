@@ -14,9 +14,9 @@ return new class extends Migration
             $table->string('nic')->unique();
             $table->string('address')->unique();
             $table->string('phone_number')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->string('user_name')->unique();
             $table->foreignId('territory_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('password');
