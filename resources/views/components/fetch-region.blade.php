@@ -10,13 +10,13 @@
                         <thead class="text-xs font-semibold bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Code</div>
+                                    <div class="font-semibold">Region Code</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Name</div>
+                                    <div class="font-semibold">Region Name</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Zone</div>
+                                    <div class="font-semibold">Zone Name</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Edit</div>

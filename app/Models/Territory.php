@@ -10,8 +10,13 @@ class Territory extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     // relationships
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);
