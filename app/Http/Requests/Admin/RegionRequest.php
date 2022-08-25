@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ZoneRequest extends FormRequest
+class RegionRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,7 +16,7 @@ class ZoneRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'sometimes',
+            'zone_id' => 'required|numeric|exists:zones,id'
         ];
     }
 }

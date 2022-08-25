@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\ZoneRequest;
 use App\Models\Zone;
 
 class ZoneController extends Controller
 {
-    public function index()
+    public function index(AdminRequest $request, )
     {
         return view('Admin.Zone.index');
     }
@@ -33,7 +34,7 @@ class ZoneController extends Controller
             ->with('success', 'New zone has been created');
     }
 
-    public function edit(Zone $zone)
+    public function edit(AdminRequest $request, Zone $zone)
     {
         return view('Admin.Zone.edit')
             ->with(['zone' => $zone]);
@@ -48,7 +49,7 @@ class ZoneController extends Controller
             ->with('success', 'Zone has been updated');
     }
 
-    public function destroy(Zone $zone)
+    public function destroy(AdminRequest $request, Zone $zone)
     {
         $zone->delete();
 

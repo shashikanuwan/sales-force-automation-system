@@ -9,6 +9,8 @@ class Territory extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    
     // relationships
     public function users()
     {

@@ -9,6 +9,8 @@ class Zone extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    
     // relationships
     public function regions()
     {

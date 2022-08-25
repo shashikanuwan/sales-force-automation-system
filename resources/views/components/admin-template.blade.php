@@ -51,6 +51,11 @@
                     {{ __('Zone Registration') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link href="{{ route('region.index') }}" :active="request()->routeIs('region.*')">
+                    <i class="fas fa-user-alt mr-3"></i>
+                    {{ __('Region Registration') }}
+                </x-responsive-nav-link>
+
             </nav>
             @if (Route::has('login'))
                 @auth
