@@ -19,6 +19,7 @@ class OrderRequest extends FormRequest
             'quantity' => 'required|numeric',
             'user_id' => 'required|numeric|exists:users,id',
             'sku_id' => 'required|numeric|exists:skus,id',
+            'deliver_date' => 'required|date',
         ];
     }
 }

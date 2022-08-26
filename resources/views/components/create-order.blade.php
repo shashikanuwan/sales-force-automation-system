@@ -46,6 +46,11 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="mt-5 md:mt-2">
+                        <label for="">Deliver Date<span class="text-red-500">*</span></label>
+                        <input id="deliver_date" name="deliver_date" type="dateTime-local" value="{{old('deliver_date')}}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                    </div>
                 </div>
 
                 <div>

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->float('mrp'); //Maximum Retail Price
             $table->float('weight'); //Volume
             $table->string('symbol'); //Weight/Volume
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->float('distributor_price');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();

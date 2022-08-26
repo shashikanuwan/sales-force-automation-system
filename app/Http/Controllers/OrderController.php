@@ -29,6 +29,7 @@ class OrderController extends Controller
         $order->quantity = $request->get('quantity');
         $order->user_id = $request->get('user_id');
         $order->sku_id = $request->get('sku_id');
+        $order->deliver_date = $request->get('deliver_date');
         $order->save();
 
         return redirect()

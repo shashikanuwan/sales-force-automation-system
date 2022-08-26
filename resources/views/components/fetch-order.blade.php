@@ -56,9 +56,9 @@
                                 </th>
 
                                 @role('admin')
-                                <th class="p-2 whitespace-nowrap">
+                                {{-- <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Edit</div>
-                                </th>
+                                </th> --}}
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Delete</div>
                                 </th>
@@ -141,9 +141,9 @@
                                     </td>
 
                                     @role('admin')
-                                    <td class="p-2 whitespace-nowrap">
+                                    {{-- <td class="p-2 whitespace-nowrap">
                                         <a href="{{ route('order.edit', $order) }}" class="font-medium text-violet-600">Edit</a>
-                                    </td>
+                                    </td> --}}
 
                                     <td class="p-2 whitespace-nowrap">
                                         <form action="{{ route('order.destroy', $order) }}" method="POST">
