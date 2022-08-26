@@ -4,6 +4,7 @@
             <header class="px-5 py-4 border-b border-gray-200">
                 <h2 class="font-semibold text-gray-800">All Orders</h2>
             </header>
+
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full">
@@ -99,6 +100,10 @@
 
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">Rs.{{ $order->sku->product->mrp * $order->quantity }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <a href="{{ route('invoice.index', $order) }}" class="font-medium text-violet-600">Invoice</a>
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">

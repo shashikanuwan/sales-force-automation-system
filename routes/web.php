@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Distributor\DistributorDashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
 
 Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::resource('order', OrderController::class);
+
+    Route::get('invoice/{order}', [InvoiceController::class, 'index'])
+        ->name('invoice.index');
 });
 
 require __DIR__ . '/auth.php';

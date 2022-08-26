@@ -39,11 +39,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('Order.show')
-            ->with([
-                'orders' => Order::query()
-                    ->where('id', $order->id)
-                    ->get()
-            ]);
+            ->with(['order' => $order]);
     }
 
     public function edit(AdminRequest $request, Order $order)
