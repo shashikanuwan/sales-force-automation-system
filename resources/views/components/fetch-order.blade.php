@@ -10,6 +10,12 @@
                         <thead class="text-xs font-semibold bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">#</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Purchase Order Number</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Region</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -19,16 +25,16 @@
                                     <div class="font-semibold">Distributor</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Purchase Order Number</div>
+                                    <div class="font-semibold">Order Date & Time</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Date & Time</div>
+                                    <div class="font-semibold">Product Name</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Product</div>
+                                    <div class="font-semibold">Available Quantity</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Quantity</div>
+                                    <div class="font-semibold">Order Quantity</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Total Amount</div>
@@ -52,6 +58,14 @@
                             @forelse ($orders as $order)
                                 <tr>
                                     <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $loop->index + 1 }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->number }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">{{ $order->user->territory->region->name }}</div>
                                     </td>
 
@@ -64,15 +78,19 @@
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="font-medium">{{ $order->number }}</div>
-                                    </td>
-
-                                    <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">{{ $order->created_at->toDayDateTimeString() }}</div>
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">{{ $order->sku->product->name }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        @if ($order->sku->product->quantity > 0)
+                                            <div class="font-medium">{{ $order->sku->product->quantity }}</div>
+                                        @else
+                                            <div class="font-medium text-red-500">Out of Stock</div>
+                                        @endif
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">

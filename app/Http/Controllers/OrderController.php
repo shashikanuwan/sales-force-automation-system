@@ -14,7 +14,7 @@ class OrderController extends Controller
         return view('Order.index');
     }
 
-    public function create()
+    public function create(AdminRequest $request)
     {
         return view('Order.create');
     }

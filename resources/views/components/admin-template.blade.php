@@ -86,7 +86,7 @@
 
                 <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
                     <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Order Registration') }}
+                    {{ __('Orders') }}
                 </x-responsive-nav-link>
                 @endrole
 
