@@ -42,6 +42,10 @@
                                 </th>
 
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Invoice</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">View</div>
                                 </th>
 
@@ -103,7 +107,13 @@
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
-                                        <a href="{{ route('invoice.index', $order) }}" class="font-medium text-violet-600">Invoice</a>
+                                        <div>
+                                            <a href="{{ route('generate.invoice', $order) }}" class="font-medium text-violet-600">Generate Invoice</a>
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <a href="{{ route('invoice.index', $order) }}" class="font-medium text-violet-600">View Invoice</a>
+                                        </div>
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">

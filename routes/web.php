@@ -45,6 +45,9 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
 
     Route::get('invoice/{order}', [InvoiceController::class, 'index'])
         ->name('invoice.index');
+
+    Route::get('generate-invoice/{order}', [InvoiceController::class, 'generateInvoice'])
+        ->name('generate.invoice');
 });
 
 require __DIR__ . '/auth.php';
