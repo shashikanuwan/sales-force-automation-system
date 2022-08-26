@@ -48,6 +48,9 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
 
     Route::get('generate-invoice/{order}', [InvoiceController::class, 'generateInvoice'])
         ->name('generate.invoice');
+
+    Route::get('export-excel', [InvoiceController::class, 'exportExcel'])
+        ->name('export.excel');
 });
 
 require __DIR__ . '/auth.php';

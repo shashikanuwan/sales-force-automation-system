@@ -7,6 +7,11 @@
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
                 Generate Invoice
             </button>
+
+            <a href="{{route('export.excel')}}" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2">
+                Export Excel
+            </a>
+
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full">

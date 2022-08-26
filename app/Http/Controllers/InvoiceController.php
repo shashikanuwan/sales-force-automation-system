@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
@@ -24,5 +26,10 @@ class InvoiceController extends Controller
         $pdf = Pdf::loadView('Order.invoice', $data);
 
         return $pdf->download("$name.pdf");
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
 }
