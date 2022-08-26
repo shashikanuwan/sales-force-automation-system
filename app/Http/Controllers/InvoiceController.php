@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
 {
@@ -15,12 +16,13 @@ class InvoiceController extends Controller
 
     public function generateInvoice(Order $order)
     {
+        $name = Str::random(5);
+
         $data = [
             'order' => $order,
         ];
-
         $pdf = Pdf::loadView('Order.invoice', $data);
 
-        return $pdf->download('fundaofwebit.pdf');
+        return $pdf->download("$name.pdf");
     }
 }

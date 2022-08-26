@@ -14,13 +14,12 @@
                 @csrf
                 <div class="md:grid md:grid-cols-2 gap-6 mt-4">
                     <div class="mt-5 md:mt-2">
-                        <label for="">Region Name</label>
-                        <input id="name" name="name" type="text"
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                        <label for="">Region Name <span class="text-red-500">*</span></label>
+                        <input id="name" name="name" type="text" value="{{old('name')}}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                     </div>
 
                     <div class="mt-5 md:mt-2">
-                        <label for="">Select Zone</label>
+                        <label for="">Select Zone <span class="text-red-500">*</span></label>
                         <select name="zone_id" id="zone_id" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
                             <option selected disabled>Select Zone</option>
                             @foreach ($zones as $zone)
