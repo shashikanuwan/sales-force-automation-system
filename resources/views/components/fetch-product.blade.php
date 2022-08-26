@@ -50,7 +50,7 @@
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="font-medium">sku</div>
+                                        <div class="font-medium">{{ $product->sku->code }}</div>
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">

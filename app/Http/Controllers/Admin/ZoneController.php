@@ -10,7 +10,7 @@ use App\Models\Zone;
 
 class ZoneController extends Controller
 {
-    public function index(AdminRequest $request, )
+    public function index(AdminRequest $request)
     {
         return view('Admin.Zone.index');
     }

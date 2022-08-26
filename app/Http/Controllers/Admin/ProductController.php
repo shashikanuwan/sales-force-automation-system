@@ -7,8 +7,6 @@ use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Sku;
-use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -24,18 +22,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $p = Product::create($request->validated());
-
-        $category = Str::limit($p->category->name, 3, '-');
-        $name = Str::limit("$p->name", 3, '-');
-        $weight = str::lower("$p->weight");
-        $mrp =str::lower("$p->mrp");
-        $skuCode = Str::upper(Str::slug("$category $name $weight $mrp", '-'));
-
-        $sku  = new Sku();
-        $sku->code = $skuCode;
-        $sku->product_id = $p->id;
-        $sku->save();
+        Product::create($request->validated());
 
         return redirect()
             ->route('product.index')
