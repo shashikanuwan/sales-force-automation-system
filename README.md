@@ -40,6 +40,22 @@ Then start the server
 
     php artisan serve
 
+Login now
+
+App password : password
+
+User Name
+
+    * Admin Role   
+                    admin_1
+                    admin_2
+
+    * Student Role 
+                    distributor_1
+                    .
+                        to
+                    .
+                    distributor_5
     
 ## Security Vulnerabilities
 
