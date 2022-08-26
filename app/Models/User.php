@@ -27,6 +27,11 @@ class User extends Authenticatable
     ];
 
     // accessors
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
     public function setUserNameAttribute($value)
     {
         $this->attributes['user_name'] = Str::slug($value, '-');

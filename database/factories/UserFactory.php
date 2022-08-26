@@ -20,7 +20,7 @@ class UserFactory extends Factory
             'gender' => $this->faker->randomElement(array('Male', 'Female')),
             'user_name' => Str::slug($this->faker->unique()->name(), '_'),
             'territory_id' =>  Territory::query()->inRandomOrder()->first()->id,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password', // $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
             'remember_token' => Str::random(10),
         ];
     }

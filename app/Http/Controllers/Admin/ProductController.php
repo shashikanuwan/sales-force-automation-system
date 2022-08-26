@@ -22,9 +22,9 @@ class ProductController extends Controller
         return view('Admin.Product.create');
     }
 
-    public function store(ProductRequest $request, Product $product)
+    public function store(ProductRequest $request)
     {
-        $p = $product->create($request->validated());
+        $p = Product::create($request->validated());
 
         $category = Str::limit($p->category->name, 3, '-');
         $name = Str::limit("$p->name", 3, '-');

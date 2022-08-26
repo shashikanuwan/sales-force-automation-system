@@ -22,9 +22,9 @@ class distributorController extends Controller
         return view('Admin.Distributor.create');
     }
 
-    public function store(DistributorCreateRequest $request, User $user)
+    public function store(DistributorCreateRequest $request)
     {
-        $user->create($request->validated())->assignRole(Role::ROLE_DISTRIBUTOR);
+        User::create($request->validated())->assignRole(Role::ROLE_DISTRIBUTOR);
 
         return redirect()
             ->route('distributor.index')
