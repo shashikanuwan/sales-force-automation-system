@@ -30,6 +30,12 @@
                                         <div class="font-semibold">Order Date & Time</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold">Deliver Date</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold">Delivery Status</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold">Product Name</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
@@ -68,9 +74,24 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->created_at->toDayDateTimeString() }}</div>
+                                            <div class="font-medium">{{ $order->created_at->format('M d, Y - h:i:s A') }}</div>
                                         </td>
 
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">{{ $order->deliver_date }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            @if ($order->status = 'pending')
+                                                <div class="font-medium text-red-500">{{ $order->status }}</div>
+                                            @elseif ($order->status = 'started')
+                                                <div class="font-medium text-orange-500">{{ $order->status }}</div>
+                                            @else
+                                                <div class="font-medium text-green-500">{{ $order->status }}</div>
+                                            @endif
+
+                                        </td>
+                                        
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">{{ $order->sku->product->name }}</div>
                                         </td>

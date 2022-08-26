@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,16 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public const PENDING = 'pending';
+    public const STARTED = 'started';
+    public const COMPLETED = 'completed';
+
+    // accessors
+    public function getDeliverDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('M d, Y');
+    }
 
     // relationships
     public function user()

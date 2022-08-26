@@ -146,7 +146,7 @@
                 <div class="col-6">
                     <h2 class="heading">Invoice No : INV-NO-{{$order->id}}</h2>
                     <p class="sub-heading"><b>Order Date:</b> {{$order->created_at->format('Y/m/d')}} </p>
-                    <p class="sub-heading"><b>Delivery Date:</b> {{$order->created_at->format('Y/m/d')}} </p>
+                    <p class="sub-heading"><b>Delivery Date:</b> {{$order->deliver_date}} </p>
                 </div>
                 <div class="col-6">
                     <h2 class="heading">Distributor</h2>
@@ -195,7 +195,7 @@
                         <td> {{ $order->sku->product->mrp }}</td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="text-right">Sub Total * quantity</td>
+                        <td colspan="4" class="text-right">Sub Total * Quantity</td>
                         <td> {{ $order->sku->product->mrp}} * {{$order->quantity }}</td>
                     </tr>
                     <tr>
@@ -205,12 +205,11 @@
                 </tbody>
             </table>
             <br>
-            <h3 class="heading">Deliver Status: Pending</h3>
-            <h3 class="heading">Payment Mode: Cash on Delivery</h3>
+            <h3 class="heading">Deliver Status: {{$order->status}}</h3>
         </div>
 
         <div class="body-section">
-            <p>&copy; Copyright 2022 - Company Name, All rights reserved.
+            <p>&copy; {{\Carbon\Carbon::now()->format('Y')}} - Company Name, All rights reserved.
                 <a href="" class="float-right">www.example.com</a>
             </p>
         </div>
