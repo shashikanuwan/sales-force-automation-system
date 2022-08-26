@@ -42,52 +42,52 @@
             </div>
             <nav class="text-white text-base font-semibold pt-3">
                 @role('admin')
-                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('zone.index') }}" :active="request()->routeIs('zone.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Zone Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('zone.index') }}" :active="request()->routeIs('zone.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Zone Registration') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('region.index') }}" :active="request()->routeIs('region.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Region Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('region.index') }}" :active="request()->routeIs('region.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Region Registration') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('territory.index') }}" :active="request()->routeIs('territory.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Territory Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('territory.index') }}" :active="request()->routeIs('territory.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Territory Registration') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('distributor.index') }}" :active="request()->routeIs('distributor.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Distributor Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('distributor.index') }}" :active="request()->routeIs('distributor.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Distributor Registration') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Product Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Product Registration') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Order Registration') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Order Registration') }}
+                    </x-responsive-nav-link>
                 @endrole
 
                 @role('distributor')
-                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('distributor.dashboard')">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('distributor.dashboard')">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
-                    <i class="fas fa-user-alt mr-3"></i>
-                    {{ __('Orders') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Orders') }}
+                    </x-responsive-nav-link>
                 @endrole
 
             </nav>
@@ -130,15 +130,54 @@
 
                 <!-- Dropdown Nav -->
                 <nav :class="isOpen ? 'flex' : 'hidden'" class="flex flex-col pt-4">
-                    <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
+                    @role('admin')
+                        <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
 
-                    <x-responsive-nav-link href="{{ route('zone.index') }}" :active="request()->routeIs('zone.index')">
-                        <i class="fas fa-user-alt mr-3"></i>
-                        {{ __('Zone Registration') }}
-                    </x-responsive-nav-link>
+                        <x-responsive-nav-link href="{{ route('zone.index') }}" :active="request()->routeIs('zone.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Zone Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('region.index') }}" :active="request()->routeIs('region.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Region Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('territory.index') }}" :active="request()->routeIs('territory.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Territory Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('distributor.index') }}" :active="request()->routeIs('distributor.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Distributor Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Product Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Order Registration') }}
+                        </x-responsive-nav-link>
+                    @endrole
+
+                    @role('distributor')
+                        <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('distributor.dashboard')">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Orders') }}
+                        </x-responsive-nav-link>
+                    @endrole
                 </nav>
             </header>
 
