@@ -53,15 +53,15 @@ App password : password
 User Name
 
     * Admin Role   
-                    admin_1
-                    admin_2
+                    admin-1
+                    admin-2
 
     * Student Role 
-                    distributor_1
+                    distributor-1
                     .
                         to
                     .
-                    distributor_5
+                    distributor-5
     
 ## Security Vulnerabilities
 
