@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Exports\OrdersExport;
 use App\Models\Order;
-use APP\Services\Zipper;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use ZipArchive;
 
 class ConversionController extends Controller
 {
@@ -51,7 +52,19 @@ class ConversionController extends Controller
             Storage::put('/public/order/invoice/' . "$order->number.pdf", $pdf->download());
         }
 
-        $zipFileName = Zipper::createZipOf();
+        $zipFileName = "order.zip";
+
+        $zip = new ZipArchive();
+
+        if ($zip->open(storage_path('app/public/order/' . $zipFileName), ZipArchive::CREATE) === true) {
+            $fiels = File::files(storage_path('app/public/order/invoice'));
+
+            foreach ($fiels as $key => $value) {
+                $nameOfFile = basename($value);
+                $zip->addFile($value, $nameOfFile);
+            }
+            $zip->close();
+        }
 
         return response()->download(storage_path('app/public/order/' . $zipFileName));
     }

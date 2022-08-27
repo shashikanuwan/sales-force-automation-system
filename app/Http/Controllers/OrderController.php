@@ -62,7 +62,8 @@ class OrderController extends Controller
     {
         $order->delete();
 
-        return back()
+        return redirect()
+            ->route('order.index')
             ->with('success', 'order has been deleted');
     }
 }

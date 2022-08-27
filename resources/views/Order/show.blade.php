@@ -50,72 +50,89 @@
                                     <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold">Total Amount</div>
                                     </th>
+                                    @role('admin')
+                                        <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold">Delete</div>
+                                        </th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody class="text-sm divide-y">
-                                    <tr>
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->number }}</div>
-                                        </td>
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->user->territory->region->name }}</div>
-                                        </td>
+                                <tr>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->number }}</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->user->territory->region->name }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->user->territory->name }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->user->territory->name }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->user->name }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->user->name }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">Rs.{{ $order->sku->product->distributor_price }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">Rs.{{ $order->sku->product->distributor_price }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->created_at->format('M d, Y - h:i:s A') }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->created_at->format('M d, Y - h:i:s A') }}
+                                        </div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->deliver_date }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->deliver_date }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            @if ($order->status = 'pending')
-                                                <div class="font-medium text-red-500">{{ $order->status }}</div>
-                                            @elseif ($order->status = 'started')
-                                                <div class="font-medium text-orange-500">{{ $order->status }}</div>
-                                            @else
-                                                <div class="font-medium text-green-500">{{ $order->status }}</div>
-                                            @endif
+                                    <td class="p-2 whitespace-nowrap">
+                                        @if ($order->status = 'pending')
+                                            <div class="font-medium text-red-500">{{ $order->status }}</div>
+                                        @elseif ($order->status = 'started')
+                                            <div class="font-medium text-orange-500">{{ $order->status }}</div>
+                                        @else
+                                            <div class="font-medium text-green-500">{{ $order->status }}</div>
+                                        @endif
 
-                                        </td>
-                                        
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->sku->product->name }}</div>
-                                        </td>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->sku->product->mrp }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->sku->product->name }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            @if ($order->sku->product->quantity > 0)
-                                                <div class="font-medium">{{ $order->sku->product->quantity }}</div>
-                                            @else
-                                                <div class="font-medium text-red-500">Out of Stock</div>
-                                            @endif
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->sku->product->mrp }}</div>
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $order->quantity }}</div>
-                                        </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        @if ($order->sku->product->quantity > 0)
+                                            <div class="font-medium">{{ $order->sku->product->quantity }}</div>
+                                        @else
+                                            <div class="font-medium text-red-500">Out of Stock</div>
+                                        @endif
+                                    </td>
 
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">Rs.{{ $order->sku->product->mrp * $order->quantity }}</div>
-                                        </td>
-                                    </tr>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $order->quantity }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">Rs.{{ $order->sku->product->mrp * $order->quantity }}
+                                        </div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <form id="form2" action="{{ route('order.destroy', $order) }}"
+                                            method="POST">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <button form="form2" type="submit"
+                                                class="font-medium text-rose-600">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="mt-6">

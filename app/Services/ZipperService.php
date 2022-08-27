@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 
 use ZipArchive;
 
-class Zipper
+class ZipperService
 {
     public static function createZipOf()
     {
