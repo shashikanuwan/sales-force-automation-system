@@ -4,11 +4,11 @@
             <header class="px-5 py-4 border-b border-gray-200">
                 <h2 class="font-semibold text-gray-800">All Orders</h2>
             </header>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
-                Generate Invoice
-            </button>
+            <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
+                Generate Bulk Invoice
+            </a>
 
-            <a href="{{route('export.excel')}}" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2">
+            <a href="{{route('export.excel')}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2">
                 Export Excel
             </a>
 

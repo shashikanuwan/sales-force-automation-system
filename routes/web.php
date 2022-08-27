@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\TerritoryController;
 use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\ConversionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Distributor\DistributorDashboardController;
 use App\Http\Controllers\HomeController;
@@ -43,13 +44,16 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
 Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::resource('order', OrderController::class);
 
-    Route::get('invoice/{order}', [InvoiceController::class, 'index'])
+    Route::get('invoice/{order}', [ConversionController::class, 'index'])
         ->name('invoice.index');
 
-    Route::get('generate-invoice/{order}', [InvoiceController::class, 'generateInvoice'])
+    Route::get('generate-invoice/{order}', [ConversionController::class, 'generateInvoice'])
         ->name('generate.invoice');
 
-    Route::get('export-excel', [InvoiceController::class, 'exportExcel'])
+    Route::get('generate-bulk-invoice', [ConversionController::class, 'generateBulkInvoice'])
+        ->name('generate.bulk.invoice');
+
+    Route::get('export-excel', [ConversionController::class, 'exportExcel'])
         ->name('export.excel');
 });
 
