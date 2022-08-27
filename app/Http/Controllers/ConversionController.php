@@ -31,10 +31,13 @@ class ConversionController extends Controller
 
     public function generateBulkInvoice(Request $request)
     {
-        $ids = $request->get('ids');
+        $request->validate([
+            'ids' => 'required',
+        ]);
 
         Storage::deleteDirectory('public/order');
 
+        $ids = $request->get('ids');
         $integerIDs = array_map('intval', $ids);
 
         for ($i = 0; $i < count($integerIDs); $i++) {
@@ -42,18 +45,12 @@ class ConversionController extends Controller
 
             foreach ($orders as $key => $order) {
             }
-
-            $data = [
-                'order' => $order,
-            ];
-
+            $data = ['order' => $order,];
             $pdf = Pdf::loadView('Order.invoice', $data);
-
             Storage::put('/public/order/invoice/' . "$order->number.pdf", $pdf->download());
         }
 
         $zipFileName = "order.zip";
-
         $zip = new ZipArchive();
 
         if ($zip->open(storage_path('app/public/order/' . $zipFileName), ZipArchive::CREATE) === true) {
@@ -63,8 +60,8 @@ class ConversionController extends Controller
                 $nameOfFile = basename($value);
                 $zip->addFile($value, $nameOfFile);
             }
-            $zip->close();
         }
+        $zip->close();
 
         return response()->download(storage_path('app/public/order/' . $zipFileName));
     }
