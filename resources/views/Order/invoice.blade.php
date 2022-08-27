@@ -144,7 +144,7 @@
         <div class="body-section">
             <div class="row">
                 <div class="col-6">
-                    <h2 class="heading">Invoice No : INV-NO-{{$order->id}}</h2>
+                    <h2 class="heading">Invoice ID : INV-{{$order->id}}{{$order->user->id}}{{$order->sku->product->id}}</h2>
                     <p class="sub-heading"><b>Order Date:</b> {{$order->created_at->format('Y/m/d')}} </p>
                     <p class="sub-heading"><b>Delivery Date:</b> {{$order->deliver_date}} </p>
                 </div>
