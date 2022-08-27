@@ -4,7 +4,9 @@
 
 Use PHP >= 8.0 for this application
 
-First clone this repository
+First enable gd extension in XAMPP, WAMP etc
+
+Then clone this repository
 
     cd laravel-test-project
 

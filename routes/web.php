@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::get('generate-invoice/{order}', [ConversionController::class, 'generateInvoice'])
         ->name('generate.invoice');
 
-    Route::get('generate-bulk-invoice', [ConversionController::class, 'generateBulkInvoice'])
+    Route::post('generate-bulk-invoice', [ConversionController::class, 'generateBulkInvoice'])
         ->name('generate.bulk.invoice');
 
     Route::get('export-excel', [ConversionController::class, 'exportExcel'])
