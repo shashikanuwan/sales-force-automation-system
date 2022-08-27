@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exports\OrdersExport;
 use App\Models\Order;
+use APP\Services\Zipper;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
-use ZipArchive;
 
 class ConversionController extends Controller
 {
@@ -27,12 +26,14 @@ class ConversionController extends Controller
 
         $pdf = Pdf::loadView('Order.invoice', $data);
         return $pdf->download('invoice.pdf');
-        //Storage::put('/public/order/' . "$order->number.pdf", $pdf->download());
     }
 
     public function generateBulkInvoice(Request $request)
     {
         $ids = $request->get('ids');
+
+        Storage::deleteDirectory('public/order');
+
         $integerIDs = array_map('intval', $ids);
 
         for ($i = 0; $i < count($integerIDs); $i++) {
@@ -40,29 +41,19 @@ class ConversionController extends Controller
 
             foreach ($orders as $key => $order) {
             }
+
             $data = [
                 'order' => $order,
             ];
 
             $pdf = Pdf::loadView('Order.invoice', $data);
 
-            Storage::put('/public/order/' . "$order->number.pdf", $pdf->download());
+            Storage::put('/public/order/invoice/' . "$order->number.pdf", $pdf->download());
         }
 
+        $zipFileName = Zipper::createZipOf();
 
-        $zip = new ZipArchive();
-        $zipFileName = "order.zip";
-
-        if ($zip->open(storage_path('app/public/' . $zipFileName), ZipArchive::CREATE) === true) {
-            $fiels = File::files(storage_path('app/public/order'));
-
-            foreach ($fiels as $key => $value) {
-                $nameOfFile = basename($value);
-                $zip->addFile($value, $nameOfFile);
-            }
-            $zip->close();
-        }
-        return response()->download(storage_path('app/public/' . $zipFileName));
+        return response()->download(storage_path('app/public/order/' . $zipFileName));
     }
 
     public function exportExcel()

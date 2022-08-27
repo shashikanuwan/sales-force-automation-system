@@ -40,6 +40,10 @@ Then running migrations
 
 Then start the server
 
+    php artisan storage:link
+
+Then start the server
+
     php artisan serve
 
 Login now
