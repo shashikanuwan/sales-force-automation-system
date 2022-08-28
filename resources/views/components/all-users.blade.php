@@ -19,6 +19,9 @@
                                     <div class="font-semibold">User Name</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">User Role</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">NIC</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -32,12 +35,6 @@
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Territory, Region, Zone Names</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Edit</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Delete</div>
                                 </th>
                             </tr>
                         </thead>
@@ -54,6 +51,11 @@
                                         <div class="font-medium">{{ $user->user_name }}</div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
+                                        <p class="inline-flex px-2 text-xs font-semibold leading-5 text-indigo-800 bg-indigo-100 rounded-full">
+                                            {{ implode(', ', $user->roles->pluck('name')->toArray()) }}
+                                        </p>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">{{ $user->nic }}</div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
@@ -67,26 +69,13 @@
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         @if ($user->territory)
-                                        <div class="font-medium">{{ $user->territory->name }}</div>
-                                        <div class="font-medium">{{ $user->territory->region->name }}</div>
-                                        <div class="font-medium">{{ $user->territory->region->zone->name }}</div>
+                                            <div class="font-medium">{{ $user->territory->name }}</div>
+                                            <div class="font-medium">{{ $user->territory->region->name }}</div>
+                                            <div class="font-medium">{{ $user->territory->region->zone->name }}</div>
                                         @else
-                                        -
+                                            -
                                         @endif
 
-                                    </td>
-
-                                    <td class="p-2 whitespace-nowrap">
-                                        <a href="{{ route('distributor.edit', $user) }}"
-                                            class="font-medium text-violet-600">Edit</a>
-                                    </td>
-
-                                    <td class="p-2 whitespace-nowrap">
-                                        <form action="{{ route('distributor.destroy', $user) }}" method="POST">
-                                            @csrf
-                                            {{ method_field('DELETE') }}
-                                            <button type="submit" class="font-medium text-rose-600">Delete</button>
-                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -98,9 +87,9 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="mt-6">
-
-                    </div>
+                </div>
+                <div class="mt-6">
+                    {{ $users->links() }}
                 </div>
             </div>
         </div>

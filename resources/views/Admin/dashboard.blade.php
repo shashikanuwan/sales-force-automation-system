@@ -1,5 +1,5 @@
 <x-admin-template>
 
-    <x-fetch-all-users />
+    <x-all-users :users="$users"/>
 
 </x-admin-template>
