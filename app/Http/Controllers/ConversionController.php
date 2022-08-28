@@ -19,14 +19,10 @@ class ConversionController extends Controller
             ->with(['order' => $order]);
     }
 
-    public function generateInvoice(Order $order)
+    public function generateSingleInvoice(Order $order)
     {
-        $data = [
-            'order' => $order,
-        ];
-
-        $pdf = Pdf::loadView('Order.invoice', $data);
-        return $pdf->download('invoice.pdf');
+        $pdf = $this->generateInvoice($order);
+        return $pdf->download("{$order->number}.pdf");
     }
 
     public function generateBulkInvoice(Request $request)
@@ -40,20 +36,43 @@ class ConversionController extends Controller
         $ids = $request->get('ids');
         $integerIDs = array_map('intval', $ids);
 
+        $this->StoreInvoice($integerIDs);
+
+        $zipFileName = "order.zip";
+        $zipFilePath = "app/public/order/";
+
+        $this->ziper($zipFilePath, $zipFileName);
+
+        return response()->download(storage_path($zipFilePath . $zipFileName));
+    }
+
+    private function generateInvoice($order)
+    {
+        $data = [
+            'order' => $order,
+        ];
+
+        return  Pdf::loadView('Order.invoice', $data);
+    }
+
+    private function StoreInvoice($integerIDs)
+    {
         for ($i = 0; $i < count($integerIDs); $i++) {
             $orders =  Order::query()->where('id', $integerIDs[$i])->get();
 
             foreach ($orders as $key => $order) {
             }
-            $data = ['order' => $order,];
-            $pdf = Pdf::loadView('Order.invoice', $data);
-            Storage::put('/public/order/invoice/' . "$order->number.pdf", $pdf->download());
-        }
 
-        $zipFileName = "order.zip";
+            $pdf = $this->generateInvoice($order);
+            Storage::put('/public/order/invoice/' . "{$order->number}.pdf", $pdf->download());
+        }
+    }
+
+    private function ziper($zipFilePath, $zipFileName)
+    {
         $zip = new ZipArchive();
 
-        if ($zip->open(storage_path('app/public/order/' . $zipFileName), ZipArchive::CREATE) === true) {
+        if ($zip->open(storage_path($zipFilePath . $zipFileName), ZipArchive::CREATE) === true) {
             $fiels = File::files(storage_path('app/public/order/invoice'));
 
             foreach ($fiels as $key => $value) {
@@ -62,8 +81,6 @@ class ConversionController extends Controller
             }
         }
         $zip->close();
-
-        return response()->download(storage_path('app/public/order/' . $zipFileName));
     }
 
     public function exportExcel()

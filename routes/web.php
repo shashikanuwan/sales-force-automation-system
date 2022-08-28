@@ -46,7 +46,7 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::get('invoice/{order}', [ConversionController::class, 'index'])
         ->name('invoice.index');
 
-    Route::get('generate-invoice/{order}', [ConversionController::class, 'generateInvoice'])
+    Route::get('generate-invoice/{order}', [ConversionController::class, 'generateSingleInvoice'])
         ->name('generate.invoice');
 
     Route::post('generate-bulk-invoice', [ConversionController::class, 'generateBulkInvoice'])
