@@ -56,7 +56,7 @@ User Name
                     admin-1
                     admin-2
 
-    * Student Role 
+    * Distributor Role 
                     distributor-1
                     .
                         to
