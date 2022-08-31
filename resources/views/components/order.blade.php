@@ -41,6 +41,9 @@
                                     <div class="font-semibold">Product Name</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Product/Unite Price</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Available Quantity</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -128,6 +131,10 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">Rs.{{ $order->sku->product->mrp }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
                                             @if ($order->sku->product->quantity > 0)
                                                 <div class="font-medium">{{ $order->sku->product->quantity }}</div>
                                             @else
@@ -141,7 +148,7 @@
 
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">
-                                                Rs.{{ $order->sku->product->mrp * $order->quantity }}
+                                                {{ $order->total_price }}
                                             </div>
                                         </td>
 

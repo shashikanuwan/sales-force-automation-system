@@ -16,12 +16,6 @@ class Order extends Model
     public const STARTED = 'started';
     public const COMPLETED = 'completed';
 
-    // accessors
-    public function getDeliverDateAttribute($value)
-    {
-        return Carbon::parse($value)->format('M d, Y');
-    }
-
     // relationships
     public function user()
     {
@@ -31,5 +25,16 @@ class Order extends Model
     public function sku()
     {
         return $this->belongsTo(Sku::class);
+    }
+
+    // accessors
+    public function getDeliverDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('M d, Y');
+    }
+
+    public function getTotalPriceAttribute()
+    {
+       return 'Rs.'.$this->sku->product->mrp * $this->quantity ;
     }
 }
