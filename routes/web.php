@@ -32,6 +32,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/territory' => TerritoryController::class,
         '/admin/distributor' => distributorController::class,
         '/admin/product' => ProductController::class,
+        '/admin/order' => OrderController::class
     ]);
 });
 
@@ -41,8 +42,6 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
-    Route::resource('order', OrderController::class);
-
     Route::get('invoice/{order}', [ConversionController::class, 'index'])
         ->name('invoice.index');
 

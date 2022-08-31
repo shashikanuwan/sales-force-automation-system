@@ -83,11 +83,6 @@
                         <i class="fas fa-tachometer-alt mr-3"></i>
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
-
-                    <x-responsive-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('order.*')">
-                        <i class="fas fa-circle"></i>
-                        {{ __('Orders') }}
-                    </x-responsive-nav-link>
                 @endrole
 
             </nav>

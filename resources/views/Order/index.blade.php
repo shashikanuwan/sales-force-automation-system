@@ -14,7 +14,7 @@
             </a>
         </div>
     @endrole
-    
-    <x-fetch-order />
+
+    <x-order :orders="$orders" />
 
 </x-admin-template>

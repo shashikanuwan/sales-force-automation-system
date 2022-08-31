@@ -11,7 +11,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('Order.index');
+        return view('Order.index')
+            ->with([
+                'orders' =>  Order::query()
+                    ->with(['sku.product', 'user.territory.region'])
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10)
+            ]);
     }
 
     public function create(AdminRequest $request)
