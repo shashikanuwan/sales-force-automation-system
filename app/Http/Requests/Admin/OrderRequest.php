@@ -15,11 +15,11 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'remark' => 'sometimes|nullable',
-            'quantity' => 'required|numeric',
-            'user_id' => 'required|numeric|exists:users,id',
-            'sku_id' => 'required|numeric|exists:skus,id',
-            'deliver_date' => 'required|date|after:today',
+            'remarks' => 'sometimes|nullable',
+            'quantities' => 'required|array',
+            'user_ids' => 'required|exists:users,id|array',
+            'sku_ids' => 'required|exists:skus,id|array',
+            'deliver_dates' => 'required|array',
         ];
     }
 }

@@ -27,6 +27,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
+        dd($request->all()); 
         $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
 
         $order = new Order();
