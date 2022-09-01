@@ -9,7 +9,7 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(AdminRequest $request)
     {
         return view('Order.index')
             ->with([

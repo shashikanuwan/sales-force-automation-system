@@ -11,8 +11,14 @@
                 </header>
                 <div class="p-3">
                     <div class="overflow-x-auto">
+                        @role('admin')
                         <form class="mt-8 space-y-6" action="{{ route('order.store') }}" method="POST">
-                            @csrf
+                        @endrole
+
+                        @role('distributor')
+                        <form class="mt-8 space-y-6" action="{{ route('distributor.order.store') }}" method="POST">
+                        @endrole
+                        @csrf
                             <table class="table-auto w-full">
                                 <thead class="text-xs font-semibold bg-gray-50">
                                     <tr>
@@ -26,10 +32,15 @@
                                             <div class="font-semibold">Quantity <span class="text-red-500">*</span>
                                             </div>
                                         </th>
-                                        <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Distributor / territory <span
-                                                    class="text-red-500">*</span></div>
-                                        </th>
+
+                                        @role('admin')
+                                            <th class="p-2 whitespace-nowrap">
+                                                <div class="font-semibold">Distributor / territory <span
+                                                        class="text-red-500">*</span>
+                                                </div>
+                                            </th>
+                                        @endrole
+
                                         <th class="p-2 whitespace-nowrap">
                                             <div class="font-semibold">Select (SKU / Product) <span
                                                     class="text-red-500">*</span></div>
@@ -58,6 +69,8 @@
                                                 value="{{ old('quantities[]') }}"
                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                         </td>
+
+                                        @role('admin')
                                         <td class="p-2 whitespace-nowrap">
                                             <select name="user_ids[]" id="user_ids"
                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -70,6 +83,8 @@
                                                 @endforeach
                                             </select>
                                         </td>
+                                        @endrole
+
                                         <td class="p-2 whitespace-nowrap">
                                             <select name="sku_ids[]" id="sku_ids"
                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -111,7 +126,11 @@
                 var tr = '<tr><td class="no">' + n + '</td>' +
                     '<td class="p-2 whitespace-nowrap"> <input id="remarks" name="remarks[]" type="text" value="{{ old('remarks[]') }}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                     '<td class="p-2 whitespace-nowrap"> <input id="quantities" name="quantities[]" type="text" value="{{ old('quantities[]') }}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+
+                    @role('admin')
                     '<td class="p-2 whitespace-nowrap"> <select name="user_ids[]" id="user_ids" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Distributor</option> @foreach ($users as $user) <option value="{{ $user->id }}"> {{ $user->name }} / {{ $user->territory->name }} </option> @endforeach </select> </td>' +
+                    @endrole
+
                     '<td class="p-2 whitespace-nowrap"> <select name="sku_ids[]" id="sku_ids" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($skus as $sku) <option value="{{ $sku->id }}"> {{ $sku->code }} / {{ $sku->product->name }} </option> @endforeach </select> </td>' +
                     '<td class="p-2 whitespace-nowrap"> <input id="deliver_dates" name="deliver_dates[]" type="dateTime-local" value="{{ old('deliver_dates[$i]') }}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"> </td>' +
                     '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\ConversionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Distributor\DistributorDashboardController;
+use App\Http\Controllers\Distributor\DistributorOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:distributor'])->group(function () {
     Route::get('/distributor/dashboard', DistributorDashboardController::class)
         ->name('distributor.dashboard');
+
+    Route::get('distributor/order/create', [DistributorOrderController::class, 'create'])
+        ->name('distributor.order.create');
+
+    Route::post('distributor/order/store', [DistributorOrderController::class, 'store'])
+        ->name('distributor.order.store');
 });
 
 Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
