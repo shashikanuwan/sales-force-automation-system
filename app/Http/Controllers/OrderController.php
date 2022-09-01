@@ -43,7 +43,6 @@ class OrderController extends Controller
             $order->save();
         }
 
-
         return redirect()
             ->route('order.index')
             ->with('success', 'Order has been created');
