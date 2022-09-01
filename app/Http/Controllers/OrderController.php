@@ -27,17 +27,22 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-        dd($request->all()); 
-        $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
+        $data = $request->get('quantities');
 
-        $order = new Order();
-        $order->number = $number;
-        $order->remark = $request->get('remark');
-        $order->quantity = $request->get('quantity');
-        $order->user_id = $request->get('user_id');
-        $order->sku_id = $request->get('sku_id');
-        $order->deliver_date = $request->get('deliver_date');
-        $order->save();
+        for ($i = 0; $i < count($data); $i++) {
+
+            $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
+
+            $order = new Order();
+            $order->number = $number;
+            $order->remark = $request->get('remarks')[$i];
+            $order->quantity = $request->get('quantities')[$i];
+            $order->user_id = $request->get('user_ids')[$i];
+            $order->sku_id = $request->get('sku_ids')[$i];
+            $order->deliver_date = $request->get('deliver_dates')[$i];
+            $order->save();
+        }
+
 
         return redirect()
             ->route('order.index')
