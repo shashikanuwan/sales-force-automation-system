@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
 use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\OrderRequest;
 use App\Models\Order;
@@ -31,16 +30,14 @@ class OrderController extends Controller
 
         for ($i = 0; $i < count($data); $i++) {
 
-            $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
-
             $order = new Order();
-            $order->number = $number;
-            $order->remark = $request->get('remarks')[$i];
-            $order->quantity = $request->get('quantities')[$i];
-            $order->user_id = $request->get('user_ids')[$i];
-            $order->sku_id = $request->get('sku_ids')[$i];
-            $order->deliver_date = $request->get('deliver_dates')[$i];
-            $order->save();
+            $order->createOrder(
+                $request->get('remarks')[$i],
+                $request->get('quantities')[$i],
+                $request->get('user_ids')[$i],
+                $request->get('sku_ids')[$i],
+                $request->get('deliver_dates')[$i]
+            );
         }
 
         return redirect()
