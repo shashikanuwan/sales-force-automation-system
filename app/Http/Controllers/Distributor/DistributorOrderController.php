@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Distributor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Distributor\DistributorOrderRequest;
+use App\Http\Requests\Distributor\DistributorRequest;
 use App\Models\Order;
 
 class DistributorOrderController extends Controller
 {
-    public function create()
+    public function create(DistributorRequest $request)
     {
         return view('Distributor.create-order');
     }
