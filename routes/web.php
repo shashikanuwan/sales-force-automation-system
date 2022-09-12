@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\distributorController;
+use App\Http\Controllers\Admin\LineFreeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\TerritoryController;
@@ -37,6 +38,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/order' => OrderController::class,
         '/admin/customer' => CustomerController::class
     ]);
+
+    Route::get('/admin/line-free', [LineFreeController::class, 'index'])
+        ->name('line.free.index');
+
+    Route::get('/admin/line-free/create', [LineFreeController::class, 'create'])
+        ->name('line.free.create');
+
+    Route::post('/admin/line-free/store', [LineFreeController::class, 'store'])
+        ->name('line.free.store');
 });
 
 Route::middleware(['auth', 'role:distributor'])->group(function () {
