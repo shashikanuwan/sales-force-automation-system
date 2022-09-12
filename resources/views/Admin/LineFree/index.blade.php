@@ -13,6 +13,6 @@
         </a>
     </div>
 
-
+    <x-fetch-line-free />
 
 </x-admin-template>

@@ -47,6 +47,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::post('/admin/line-free/store', [LineFreeController::class, 'store'])
         ->name('line.free.store');
+
+    Route::delete('/admin/line-free/{lineFree}/destroy', [LineFreeController::class, 'destroy'])
+        ->name('line.free.destroy');
 });
 
 Route::middleware(['auth', 'role:distributor'])->group(function () {

@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     // relationships
     public function sku()
     {
@@ -20,5 +20,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function Linefree()
+    {
+        return $this->hasOne(LineFree::class);
     }
 }

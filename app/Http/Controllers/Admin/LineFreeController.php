@@ -26,4 +26,12 @@ class LineFreeController extends Controller
             ->route('line.free.index')
             ->with('success', 'New Line Free has been created');
     }
+
+    public function destroy(LineFree $lineFree)
+    {
+        $lineFree->delete();
+
+        return back()
+            ->with('success', 'Line Free has been deleted');
+    }
 }
