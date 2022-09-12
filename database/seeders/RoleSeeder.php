@@ -12,6 +12,7 @@ class RoleSeeder extends Seeder
         Role::query()->insert([
             ['name' => \App\Models\Role::ROLE_ADMIN, 'guard_name' => 'web'],
             ['name' => \App\Models\Role::ROLE_DISTRIBUTOR, 'guard_name' => 'web'],
+            ['name' => \App\Models\Role::ROLE_CUSTOMER, 'guard_name' => 'web'],
         ]);
     }
 }

@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->belongsTo(Territory::class);
     }
 
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
     //bool
     public function isAdmin(): bool
     {

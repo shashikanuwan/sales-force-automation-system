@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\distributorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RegionController;
@@ -33,7 +34,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/territory' => TerritoryController::class,
         '/admin/distributor' => distributorController::class,
         '/admin/product' => ProductController::class,
-        '/admin/order' => OrderController::class
+        '/admin/order' => OrderController::class,
+        '/admin/customer' => CustomerController::class
     ]);
 });
 

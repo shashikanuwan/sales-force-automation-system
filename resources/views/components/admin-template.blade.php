@@ -67,6 +67,11 @@
                         {{ __('Distributor Registration') }}
                     </x-responsive-nav-link>
 
+                    <x-responsive-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.*')">
+                        <i class="fas fa-circle"></i>
+                        {{ __('Customer Registration') }}
+                    </x-responsive-nav-link>
+
                     <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
                         <i class="fas fa-circle"></i>
                         {{ __('Product Registration') }}
@@ -149,6 +154,11 @@
                         <x-responsive-nav-link href="{{ route('distributor.index') }}" :active="request()->routeIs('distributor.*')">
                             <i class="fas fa-circle"></i>
                             {{ __('Distributor Registration') }}
+                        </x-responsive-nav-link>
+
+                        <x-responsive-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.*')">
+                            <i class="fas fa-circle"></i>
+                            {{ __('Customer Registration') }}
                         </x-responsive-nav-link>
 
                         <x-responsive-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.*')">
