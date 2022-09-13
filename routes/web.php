@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\TerritoryController;
 use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\ConversionController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Distributor\DistributorDashboardController;
 use App\Http\Controllers\Distributor\DistributorOrderController;
@@ -64,6 +65,15 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
 
     Route::get('export-excel', [ConversionController::class, 'exportExcel'])
         ->name('export.excel');
+
+    Route::get('customer-order', [CustomerOrderController::class, 'index'])
+        ->name('customer-order.index');
+
+    Route::get('customer-order/create', [CustomerOrderController::class, 'create'])
+        ->name('customer-order.create');
+
+    Route::post('customer-order/store', [CustomerOrderController::class, 'store'])
+        ->name('customer-order.store');
 });
 
 require __DIR__ . '/auth.php';
