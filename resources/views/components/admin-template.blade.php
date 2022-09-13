@@ -77,7 +77,7 @@
                         {{ __('Product Registration') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link href="{{ route('line.free.index') }}" :active="request()->routeIs('line.free.*')">
+                    <x-responsive-nav-link href="{{ route('line-free.index') }}" :active="request()->routeIs('line-free.*')">
                         <i class="fas fa-circle"></i>
                         {{ __('Line Free Registration') }}
                     </x-responsive-nav-link>
@@ -171,7 +171,7 @@
                             {{ __('Product Registration') }}
                         </x-responsive-nav-link>
 
-                        <x-responsive-nav-link href="{{ route('line.free.index') }}" :active="request()->routeIs('line.free.*')">
+                        <x-responsive-nav-link href="{{ route('line-free.index') }}" :active="request()->routeIs('line-free.*')">
                             <i class="fas fa-circle"></i>
                             {{ __('Line Free Registration') }}
                         </x-responsive-nav-link>

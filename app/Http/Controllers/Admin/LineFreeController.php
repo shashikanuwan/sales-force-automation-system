@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\LineFreeRequest;
+use App\Http\Requests\Admin\UpdateLineFreeRequest;
 use App\Models\LineFree;
 
 class LineFreeController extends Controller
 {
-    public function index()
+    public function index(AdminRequest $request)
     {
         return view('Admin.LineFree.index');
     }
 
-    public function create()
+    public function create(AdminRequest $request)
     {
         return view('Admin.LineFree.create');
     }
@@ -23,11 +25,28 @@ class LineFreeController extends Controller
         LineFree::create($request->validated());
 
         return redirect()
-            ->route('line.free.index')
+            ->route('line-free.index')
             ->with('success', 'New Line Free has been created');
     }
 
-    public function destroy(LineFree $lineFree)
+    public function edit(LineFree $lineFree)
+    {
+        return view('Admin.LineFree.edit')
+            ->with([
+                'lineFree' => $lineFree
+            ]);
+    }
+
+    public function update(UpdateLineFreeRequest $request, LineFree $lineFree)
+    {
+        $lineFree->update($request->validated());
+
+        return redirect()
+            ->route('line-free.index')
+            ->with('success', 'lineFree has been updated');
+    }
+
+    public function destroy(AdminRequest $request, LineFree $lineFree)
     {
         $lineFree->delete();
 

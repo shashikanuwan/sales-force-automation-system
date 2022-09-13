@@ -36,20 +36,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/distributor' => distributorController::class,
         '/admin/product' => ProductController::class,
         '/admin/order' => OrderController::class,
-        '/admin/customer' => CustomerController::class
+        '/admin/customer' => CustomerController::class,
+        '/admin/line-free' => LineFreeController::class
     ]);
-
-    Route::get('/admin/line-free', [LineFreeController::class, 'index'])
-        ->name('line.free.index');
-
-    Route::get('/admin/line-free/create', [LineFreeController::class, 'create'])
-        ->name('line.free.create');
-
-    Route::post('/admin/line-free/store', [LineFreeController::class, 'store'])
-        ->name('line.free.store');
-
-    Route::delete('/admin/line-free/{lineFree}/destroy', [LineFreeController::class, 'destroy'])
-        ->name('line.free.destroy');
 });
 
 Route::middleware(['auth', 'role:distributor'])->group(function () {

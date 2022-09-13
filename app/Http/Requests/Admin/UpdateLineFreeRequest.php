@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LineFreeRequest extends FormRequest
+class UpdateLineFreeRequest extends FormRequest
 {
     public function authorize()
     {
@@ -21,7 +21,6 @@ class LineFreeRequest extends FormRequest
             'free_quantity' => 'required|integer',
             'lower_limit' => 'required|integer',
             'uper_limit' => 'required|integer',
-            'product_id' => 'required|integer|exists:products,id',
         ];
     }
 }

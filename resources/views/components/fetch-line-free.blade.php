@@ -19,13 +19,22 @@
                                     <div class="font-semibold">Product</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Free Product</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Purchase Quantity</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Free Quantity</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Lower Limit</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Uper Limit</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Free Quantity</div>
+                                    <div class="font-semibold">Edit</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Delete</div>
@@ -48,6 +57,18 @@
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $linefree->product->name }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $linefree->purchase_quantity }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">{{ $linefree->free_quantity }}</div>
+                                    </td>
+
+                                    <td class="p-2 whitespace-nowrap">
                                         <div class="font-medium">{{ $linefree->lower_limit }}</div>
                                     </td>
 
@@ -56,11 +77,12 @@
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="font-medium">{{ $linefree->quantity }}</div>
+                                        <a href="{{ route('line-free.edit', $linefree) }}"
+                                            class="font-medium text-violet-600">Edit</a>
                                     </td>
 
                                     <td class="p-2 whitespace-nowrap">
-                                        <form action="{{ route('line.free.destroy', $linefree) }}" method="POST">
+                                        <form action="{{ route('line-free.destroy', $linefree) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <button type="submit" class="font-medium text-rose-600">Delete</button>

@@ -12,9 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('label');
             $table->string('type');
+            $table->integer('purchase_quantity');
+            $table->integer('free_quantity');
             $table->integer('lower_limit');
             $table->integer('uper_limit');
-            $table->integer('quantity');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

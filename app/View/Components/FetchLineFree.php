@@ -13,6 +13,7 @@ class FetchLineFree extends Component
     public function __construct()
     {
         $this->linefrees = LineFree::query()
+            ->with('product')
             ->orderBy('id', 'DESC')
             ->get();
     }
