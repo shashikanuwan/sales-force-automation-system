@@ -71,7 +71,7 @@ class CustomerOrder extends Model
         return "-";
     }
 
-    public function getPurchaseAttribute()
+    public function getPurchaseQuantityAttribute()
     {
         if ($this->product->linefree) {
             return $this->product->linefree->purchase_quantity;

@@ -116,11 +116,11 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->quantity }}</div>
+                                            <div class="font-medium">{{ $customerOrder->PurchaseQuantity }}</div>
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->freePurchase }}</div>
+                                            <div class="font-medium">{{ $customerOrder->FreeQuantity }}</div>
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
