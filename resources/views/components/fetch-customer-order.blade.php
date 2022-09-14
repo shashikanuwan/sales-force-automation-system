@@ -11,9 +11,6 @@
                         <thead class="text-xs font-semibold bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
-                                    <input type="checkbox" id="option-all" onchange="checkAll(this)"> Check All
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">#</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -34,45 +31,44 @@
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Deliver Date</div>
                                 </th>
-                                {{-- <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Delivery Status</div>
-                                </th> --}}
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Available Quantity</div>
+                                    <div class="font-semibold">Delivery Status</div>
                                 </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Unit Price</div>
+                                </th>
+
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Order Quantity</div>
                                 </th>
+
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Total Amount</div>
+                                    <div class="font-semibold">Purchase Quantity</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Free Quantity</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Type</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Free Issue</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">Net Amount</div>
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody class="text-sm divide-y">
-
-                            {{-- <button type="submit" form="form1"
-                                class="submitButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
-                                Generate Invoice
-                            </button>
-
-                            <a href="{{ route('export.excel') }}"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2">
-                                Export Excel
-                            </a> --}}
-
                             <form id="form1" action="{{ route('generate.bulk.invoice') }}" method="POST">
                                 @csrf
                                 @forelse ($customerOrders as $customerOrder)
                                     <tr>
-
-                                        <td class="p-2 whitespace-nowrap">
-
-                                            <input type="checkbox" name="ids[]" value="{{ $customerOrder->id }}"
-                                                class="checkboxClass">
-
-                                        </td>
-
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">{{ $loop->index + 1 }}</div>
                                         </td>
@@ -103,22 +99,38 @@
                                             @if ($customerOrder->status = 'pending')
                                                 <div class="font-medium text-red-500">{{ $customerOrder->status }}</div>
                                             @elseif ($customerOrder->status = 'started')
-                                                <div class="font-medium text-orange-500">{{ $customerOrder->status }}</div>
+                                                <div class="font-medium text-orange-500">{{ $customerOrder->status }}
+                                                </div>
                                             @else
-                                                <div class="font-medium text-green-500">{{ $customerOrder->status }}</div>
+                                                <div class="font-medium text-green-500">{{ $customerOrder->status }}
+                                                </div>
                                             @endif
                                         </td>
 
-                                        {{-- <td class="p-2 whitespace-nowrap">
-                                            @if ($customerOrder->customer->distributor->orders->quantity > 0)
-                                                <div class="font-medium">{{ $customerOrder->customer->distributor->orders->quantity }}</div>
-                                            @else
-                                                <div class="font-medium text-red-500">Out of Stock</div>
-                                            @endif
-                                        </td> --}}
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">Rs.{{ $customerOrder->product->mrp }}</div>
+                                        </td>
 
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">{{ $customerOrder->quantity }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">{{ $customerOrder->quantity }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">{{ $customerOrder->freePurchase }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">{{ $customerOrder->type }}</div>
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div class="font-medium">
+                                                {{ $customerOrder->freeIssue }}
+                                            </div>
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
@@ -142,19 +154,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    var checkboxes = document.querySelectorAll("input[type = 'checkbox']");
-
-    function checkAll(myCheckbox) {
-        if (myCheckbox.checked == true) {
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = true;
-            });
-        } else {
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = false;
-            });
-        }
-    }
-</script>

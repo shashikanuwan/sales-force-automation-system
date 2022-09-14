@@ -36,4 +36,46 @@ class CustomerOrder extends Model
         $this->deliver_date = $deliverDates;
         $this->save();
     }
+
+    // accessors
+    public function getFreeIssueAttribute()
+    {
+        if ($this->product->linefree) {
+            if ($this->product->linefree->type == "Flat") {
+                if ($this->product->linefree->lower_limit <= $this->quantity and $this->quantity <= $this->product->linefree->uper_limit) {
+                    return $this->product->Linefree->free_quantity;
+                }
+                return  "No free issue";
+            }
+            if ($this->product->linefree->lower_limit <= $this->quantity and $this->quantity <= $this->product->linefree->uper_limit) {
+                return intval($this->quantity / $this->product->linefree->purchase_quantity * $this->product->linefree->free_quantity);
+            }
+            return  "No free issue";
+        }
+        return "-";
+    }
+
+    public function getFreeQuantityAttribute()
+    {
+        if ($this->product->linefree) {
+            return $this->product->linefree->free_quantity;
+        }
+        return "-";
+    }
+
+    public function getTypeAttribute()
+    {
+        if ($this->product->linefree) {
+            return $this->product->linefree->type;
+        }
+        return "-";
+    }
+
+    public function getPurchaseAttribute()
+    {
+        if ($this->product->linefree) {
+            return $this->product->linefree->purchase_quantity;
+        }
+        return "-";
+    }
 }

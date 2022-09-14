@@ -13,6 +13,7 @@ class FetchCustomerOrder extends Component
     public function __construct()
     {
         $this->customerOrders = CustomerOrder::query()
+            ->with('customer', 'product')
             ->orderBy('id', 'DESC')
             ->get();
     }
