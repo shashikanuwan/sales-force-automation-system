@@ -70,7 +70,7 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <select onchange="clearRowContent(1)" name="product_ids_1" id="product_ids_1" class="product_ids appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
+                                            <select name="product_ids_1" id="product_ids_1" class="product_ids appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
                                                 <option selected disabled>Select Product</option>
                                                 @foreach ($orders as $order)
                                                     <option value="{{ $order->sku->product->id }}">
@@ -81,8 +81,8 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <input id="quantities_1" name="quantities_1" type="text"
-                                                value="{{ old('quantities[]') }}" onkeyup="aa()"
+                                            <input onchange="clearRowContent(1)" id="quantities_1" name="quantities_1" type="text"
+                                                value="{{ old('quantities_1') }}" onkeyup="aa()"
                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                         </td>
 
@@ -123,8 +123,8 @@
             var value = $('#product_count').val();
             $('#product_count').val(value+1);
             var tr = '<tr><td class="no">' + n + '</td>' +
-                '<td class="p-2 whitespace-nowrap"> <select name="product_ids_'+ n +'" id="product_ids_2" onchange="clearRowContent(2)" class="product_ids appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
-                '<td class="p-2 whitespace-nowrap"> <input id="quantities" name="quantities[]" type="text" value="{{ old('quantities[]') }}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <select name="product_ids_'+ n +'" id="product_ids_'+ n +'" class="product_ids appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities_'+ n +'" type="text" onchange="clearRowContent('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="freeIsue" name="freeIsue" type="text" value="" class="freeIsue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';
             $('.resultbody').append(tr);
@@ -150,41 +150,31 @@
 
 <script>
     function clearRowContent(index) {
+
         var productId = $('#product_ids_'+ index).val();
+        var qty =  $('#quantities_'+ index).val();
 
         alert(productId);
-            $.ajax({
-                type: 'POST',
-                url: '/calculate',
-                data: {
-                    _token: "{{csrf_token()}}",
-                    product_id:productId
-                },
-                success: function(data) {
-                    //response(data)
-                    console.log(data);
-                }
-            });
+        alert(qty);
+
+        $.ajax({
+            type: 'POST',
+            url: '/calculate',
+            data: {
+                _token: "{{csrf_token()}}",
+                product_id:productId
+            },
+            success: function(data) {
+                //response(data)
+                console.log(data);
+            }
+        });
     }
 
     function aa()
     {
        var qty =  $('#quantities').val();
-
        console.log(qty);
     }
-
-        // function response(data) {
-        //     console.log(row);
-        //     try {
-
-        //         row.find(".freeIsue").val(data.id);
-
-        //      } catch (e) {
-        //           alert(e)
-        //      }
-        //     console.log(data.id);
-        // }
-    // }
 </script>
 
