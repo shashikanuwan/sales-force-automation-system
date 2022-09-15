@@ -74,6 +74,9 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
 
     Route::post('customer-order/store', [CustomerOrderController::class, 'store'])
         ->name('customer-order.store');
+
+    Route::post('calculate', [CustomerOrderController::class, 'calculate'])
+        ->name('customer-order.calculate');
 });
 
 require __DIR__ . '/auth.php';

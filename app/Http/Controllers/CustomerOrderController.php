@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerOrderRequest;
 use App\Models\CustomerOrder;
 use App\Models\CustomerOrderProduct;
+use App\Models\Product;
+use Illuminate\Http\Request;
 
 class CustomerOrderController extends Controller
 {
@@ -39,5 +41,20 @@ class CustomerOrderController extends Controller
         return redirect()
             ->route('customer-order.index')
             ->with('success', 'Customer Order has been created');
+    }
+
+    public function calculate(Request $request)
+    {
+        return $request;
+        $product = Product::query()->where('id', $request->get('product_ids'))->get();
+
+        if ($product != null) {
+            if ($request->ajax()) {
+                return $product;
+            } else {
+                return false;
+            }
+        }
+        return response()->json($product);
     }
 }
