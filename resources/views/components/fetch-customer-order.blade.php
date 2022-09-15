@@ -21,41 +21,15 @@
                                 </th>
 
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Product Name</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Order Date & Time</div>
                                 </th>
 
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Deliver Date</div>
                                 </th>
+
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Delivery Status</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Unit Price</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Order Quantity</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Purchase Quantity</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Free Quantity</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Type</div>
-                                </th>
-
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold">Free Issue</div>
                                 </th>
 
                                 <th class="p-2 whitespace-nowrap">
@@ -82,10 +56,6 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->product->name }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">
                                                 {{ $customerOrder->created_at->format('M d, Y - h:i:s A') }}
                                             </div>
@@ -108,34 +78,14 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">Rs.{{ $customerOrder->product->mrp }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->quantity }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->PurchaseQuantity }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->FreeQuantity }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">{{ $customerOrder->type }}</div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
                                             <div class="font-medium">
-                                                {{ $customerOrder->freeIssue }}
-                                            </div>
-                                        </td>
-
-                                        <td class="p-2 whitespace-nowrap">
-                                            <div class="font-medium">
-                                                Rs.{{ $customerOrder->product->mrp * $customerOrder->quantity }}
+                                                <?php
+                                                $total = 0;
+                                                foreach ($customerOrder->customerOrderProducts as $customerOrderProduct) {
+                                                    $total = $total + $customerOrderProduct->product->mrp * $customerOrderProduct->quantity;
+                                                }
+                                                ?>
+                                                Rs.{{ $total }}
                                             </div>
                                         </td>
                                     </tr>

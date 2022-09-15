@@ -16,9 +16,9 @@ class CustomerOrderRequest extends FormRequest
     {
         return [
             'quantities.*' => 'required|numeric',
-            'customer_ids' => 'required|exists:customers,id',
+            'customer_id' => 'required|exists:customers,id',
             'product_ids' => 'required|exists:products,id',
-            'deliver_dates.*' => 'required|date|after:today',
+            'deliver_date' => 'required|date|after:today',
         ];
     }
 }

@@ -12,11 +12,9 @@ return new class extends Migration
         Schema::create('customer_orders', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->integer('quantity');
             $table->dateTime('deliver_date');
             $table->string('status')->default(CustomerOrder::PENDING);
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerOrderRequest;
 use App\Models\CustomerOrder;
+use App\Models\CustomerOrderProduct;
 
 class CustomerOrderController extends Controller
 {
@@ -19,17 +20,20 @@ class CustomerOrderController extends Controller
 
     public function store(CustomerOrderRequest $request)
     {
+        $customerOrder = new CustomerOrder();
+        $customerOrder->createOrder(
+            $request->get('customer_id'),
+            $request->get('deliver_date')
+        );
+
         $data = $request->get('quantities');
 
         for ($i = 0; $i < count($data); $i++) {
-
-            $customerOrder = new CustomerOrder();
-            $customerOrder->createOrder(
-                $request->get('quantities')[$i],
-                $request->get('customer_ids')[$i],
-                $request->get('product_ids')[$i],
-                $request->get('deliver_dates')[$i]
-            );
+            $customerOrderProduct = new CustomerOrderProduct();
+            $customerOrderProduct->quantity = $request->get('quantities')[$i];
+            $customerOrderProduct->customer_order_id = $customerOrder->id;
+            $customerOrderProduct->product_id = request('product_ids')[$i];
+            $customerOrderProduct->save();
         }
 
         return redirect()

@@ -25,15 +25,19 @@ class CustomerOrder extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function createOrder($quantities, $customerId, $productID, $deliverDates)
+    public function customerOrderProducts()
+    {
+        return $this->hasMany(CustomerOrderProduct::class);
+    }
+
+    //action
+    public function createOrder($customerId, $deliverDate)
     {
         $number = Helper::IDGenerator(new CustomerOrder(), 'number', 2, 'CUST_ODR');
 
         $this->number = $number;
-        $this->quantity = $quantities;
         $this->customer_id = $customerId;
-        $this->product_id = $productID;
-        $this->deliver_date = $deliverDates;
+        $this->deliver_date = $deliverDate;
         $this->save();
     }
 
