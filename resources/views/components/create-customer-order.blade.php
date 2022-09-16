@@ -115,7 +115,14 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <input type="button" value="Add" onclick="" class="add group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                            <div class="md:grid md:grid-cols-3 gap-6 mt-4">
+                                <div class="mt-5 md:mt-2">
+                                    <label for="">Net Amount <span class="text-red-500">*</span> </label>
+                                    <span id="netAmount">0</span>
+                                </div>
+                            </div>
+
+                            <input type="button" value="Add" onclick="cal" class="add group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
                             <input type="submit" value="Create Order" class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         </form>
                     </div>
@@ -207,4 +214,25 @@
             }
         });
     }
+
+</script>
+
+<script>
+	$(document).ready(function(){
+		$(".amount").each(function() {
+            $('.add').click(function() {
+				calculateNetAmount();
+			});
+		});
+	});
+
+	function calculateNetAmount() {
+		var netAmount = 0;
+		$(".amount").each(function() {
+			if(!isNaN(this.value) && this.value.length!=0) {
+				netAmount += parseFloat(this.value);
+			}
+		});
+		$("#netAmount").html(netAmount.toFixed(2));
+	}
 </script>
