@@ -63,6 +63,11 @@
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold">Amount<span class="text-red-500">*</span>
+                                            </div>
+                                        </th>
+
+                                        <th class="p-2 whitespace-nowrap">
                                             <div class="font-semibold">Delete</div>
                                         </th>
                                     </tr>
@@ -97,6 +102,10 @@
 
                                         <td class="p-2 whitespace-nowrap">
                                             <input id="freeIssue_1" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <input id="amount_1" name="amount" type="text" readonly class="amount appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
@@ -136,6 +145,7 @@
                 '<td class="p-2 whitespace-nowrap"> <input id="productCode_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" type="number" onkeyup="getFreeIssue('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="freeIssue_'+ n +'" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="amount_'+ n +'" name="amount" type="text" readonly class="amount appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';
             $('.resultbody').append(tr);
         });
@@ -191,10 +201,10 @@
                 product_id:product,
                 quantity:quantity
             },
-            success: function(freeIssue) {
-                 document.getElementById('freeIssue_' + index).value = freeIssue;
+            success: function(data) {
+                 document.getElementById('freeIssue_' + index).value = data.freeIssue;
+                 document.getElementById('amount_' + index).value = data.amount;
             }
         });
     }
 </script>
-

@@ -55,21 +55,30 @@ class CustomerOrderController extends Controller
     {
         $product = Product::query()->where('id', $request->get('product_id'))->first();
         $quantity = intval($request->get('quantity'));
+        $amount = round($product->mrp * $quantity, 2);
+        $freeIssue = null;
 
         if ($request->ajax()) {
             if ($product->linefree) {
                 if ($product->linefree->type == "Flat") {
                     if ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
-                        return response()->json($product->Linefree->free_quantity);
+                        $freeIssue =  $product->Linefree->free_quantity;
+                    } else {
+                        $freeIssue = "No free issue";
                     }
-                    return response()->json("No free issue");
+                } elseif ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
+                    $freeIssue = intval($quantity / $product->linefree->purchase_quantity * $product->linefree->free_quantity);
+                } else {
+                    $freeIssue = "No free issue";
                 }
-                if ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
-                    return response()->json(intval($quantity / $product->linefree->purchase_quantity * $product->linefree->free_quantity));
-                }
-                return response()->json("No free issue");
+            } else {
+                $freeIssue = "Free Issue Not Created";
             }
-            return response()->json("Free Issue Not Created");
         }
+
+        return response([
+            'freeIssue' => $freeIssue,
+            'amount' => $amount
+        ]);
     }
 }
