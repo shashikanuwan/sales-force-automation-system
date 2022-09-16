@@ -75,8 +75,11 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::post('customer-order/store', [CustomerOrderController::class, 'store'])
         ->name('customer-order.store');
 
-    Route::post('calculate', [CustomerOrderController::class, 'calculate'])
-        ->name('customer-order.calculate');
+    Route::post('product-sku', [CustomerOrderController::class, 'productSku'])
+        ->name('product.sku');
+
+    Route::post('free-issue', [CustomerOrderController::class, 'freeIssue'])
+        ->name('product.free.issue');
 });
 
 require __DIR__ . '/auth.php';

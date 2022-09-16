@@ -43,7 +43,15 @@ class CustomerOrderController extends Controller
             ->with('success', 'Customer Order has been created');
     }
 
-    public function calculate(Request $request)
+    public function productSku(Request $request)
+    {
+        $product = Product::query()->where('id', $request->get('product_id'))->first();
+        $productCode = $product->sku->code;
+
+        return response()->json($productCode);
+    }
+
+    public function freeIssue(Request $request)
     {
         $product = Product::query()->where('id', $request->get('product_id'))->first();
         $quantity = intval($request->get('quantity'));
@@ -54,14 +62,14 @@ class CustomerOrderController extends Controller
                     if ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
                         return response()->json($product->Linefree->free_quantity);
                     }
-                    return response("No free issue");
+                    return response()->json("No free issue");
                 }
                 if ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
                     return response()->json(intval($quantity / $product->linefree->purchase_quantity * $product->linefree->free_quantity));
                 }
-                return response("No free issue");
+                return response()->json("No free issue");
             }
-            return response("Free Issue Not Created");
+            return response()->json("Free Issue Not Created");
         }
     }
 }

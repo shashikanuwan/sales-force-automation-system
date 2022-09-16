@@ -49,6 +49,10 @@
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold">Product Code<span class="text-red-500">*</span></div>
+                                        </th>
+
+                                        <th class="p-2 whitespace-nowrap">
                                             <div class="font-semibold">Quantity <span class="text-red-500">*</span>
                                             </div>
                                         </th>
@@ -70,7 +74,7 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <select name="product_ids[]" id="product_id_1" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
+                                            <select name="product_ids[]" onchange="getProductSku(1)" id="product_id_1" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
                                                 <option selected disabled>Select Product</option>
                                                 @foreach ($orders as $order)
                                                     <option value="{{ $order->sku->product->id }}">
@@ -81,14 +85,18 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <input onchange="clearRowContent(1)" id="quantities_1" name="quantities[]" type="number"
+                                            <input id="productCode_1" name="product_code" type="text" readonly class="product_code appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <input name="quantities[]" onkeyup="getFreeIssue(1)" id="quantities_1" type="number"
                                                 value="{{ old('quantities_1') }}"
                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                                 {{-- onkeyup="aa()"onchange --}}
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <input id="freeIsue_1" name="freeIsue" value="" type="text" class="freeIsue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                            <input id="freeIssue_1" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
@@ -124,9 +132,10 @@
             var value = $('#product_count').val();
             $('#product_count').val(value+1);
             var tr = '<tr><td class="no">' + n + '</td>' +
-                '<td class="p-2 whitespace-nowrap"> <select name="product_ids[]" id="product_id_'+ n +'" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
-                '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" value="" type="number" onchange="clearRowContent('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
-                '<td class="p-2 whitespace-nowrap"> <input id="freeIsue_'+ n +'" name="freeIsue" type="text" value="" class="freeIsue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <select name="product_ids[]" id="product_id_'+ n +'" onchange="getProductSku('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="productCode_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" type="number" onkeyup="getFreeIssue('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="freeIssue_'+ n +'" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';
             $('.resultbody').append(tr);
         });
@@ -148,21 +157,42 @@
     });
 </script>
 
+{{-- Product Sku --}}
 <script>
-    function clearRowContent(index) {
+    function getProductSku(index) {
+        var product = $('#product_id_'+ index).val();
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('product.sku') }}",
+            data: {
+                _token: "{{csrf_token()}}",
+                product_id:product
+            },
+            success: function(productCode) {
+                document.getElementById('productCode_' + index).value = productCode;
+                $('#quantities_' + index).attr('readonly', false);
+            }
+        });
+    }
+</script>
+
+{{-- FreeIssue --}}
+<script>
+    function getFreeIssue(index) {
         var product = $('#product_id_'+ index).val();
         var quantity =  $('#quantities_'+ index).val();
 
         $.ajax({
             type: 'POST',
-            url: "{{ route('customer-order.calculate') }}",
+            url: "{{ route('product.free.issue') }}",
             data: {
                 _token: "{{csrf_token()}}",
                 product_id:product,
                 quantity:quantity
             },
-            success: function(product) {
-                document.getElementById('freeIsue_' + index).value = product;
+            success: function(freeIssue) {
+                 document.getElementById('freeIssue_' + index).value = freeIssue;
             }
         });
     }
