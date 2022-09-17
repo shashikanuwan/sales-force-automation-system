@@ -109,7 +109,7 @@
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
-                                            <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                            <input type="button" value="X" onclick="removeNetAmount(1)"  class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                         </td>
                                         <input type="hidden" name="product_count" id="product_count" value="1">
                                     </tr>
@@ -118,11 +118,11 @@
                             <div class="md:grid md:grid-cols-3 gap-6 mt-4">
                                 <div class="mt-5 md:mt-2">
                                     <label for="">Net Amount <span class="text-red-500">*</span> </label>
-                                    <span id="netAmount">0</span>
+                                    <input type="text" id="netAmount" name="netAmount" readonly class="netAmount">
                                 </div>
                             </div>
 
-                            <input type="button" value="Add" onclick="cal" class="add group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                            <input type="button" value="add" class="add group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
                             <input type="submit" value="Create Order" class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         </form>
                     </div>
@@ -153,7 +153,7 @@
                 '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" type="number" onkeyup="getFreeIssue('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="freeIssue_'+ n +'" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="amount_'+ n +'" name="amount" type="text" readonly class="amount appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
-                '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';
+                '<td class="p-2 whitespace-nowrap"> <input type="button" value="X" onclick="removeNetAmount('+ n +')" class="delete group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> </td>';
             $('.resultbody').append(tr);
         });
 
@@ -217,6 +217,7 @@
 
 </script>
 
+{{-- add Net Amount --}}
 <script>
 	$(document).ready(function(){
 		$(".amount").each(function() {
@@ -233,6 +234,20 @@
 				netAmount += parseFloat(this.value);
 			}
 		});
-		$("#netAmount").html(netAmount.toFixed(2));
+        document.getElementById('netAmount').value = netAmount.toFixed(2);
 	}
+</script>
+
+
+{{-- remove Net Amount --}}
+<script>
+    function removeNetAmount(index) {
+        $(document).ready(function(){
+            var netAmount = $('input[name="netAmount"]').val();
+            var amount = $('#amount_'+ index).val();
+            val = netAmount - amount;
+
+            document.getElementById('netAmount').value = val.toFixed(2);
+	    });
+    }
 </script>
