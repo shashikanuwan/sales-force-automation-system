@@ -211,33 +211,28 @@
             success: function(data) {
                  document.getElementById('freeIssue_' + index).value = data.freeIssue;
                  document.getElementById('amount_' + index).value = data.amount;
+
+                 if(index == 1) {
+                    cala(data.amount, index);
+                 } else {
+                    calb(data.amount, index);
+                 }
             }
         });
     }
 
+    function cala(amount, index){
+        var netA = 0;
+        netA += parseFloat($('#amount_' + index).val());
+        $('#netAmount').val(netA.toFixed(2))
+    }
+
+    function calb(amount, index){
+        var netA =parseFloat( $('#netAmount').val());
+                 netA += parseFloat($('#amount_' + index).val());
+                 $('#netAmount').val(netA.toFixed(2))
+    }
 </script>
-
-{{-- add Net Amount --}}
-<script>
-	$(document).ready(function(){
-		$(".amount").each(function() {
-            $('.add').click(function() {
-				calculateNetAmount();
-			});
-		});
-	});
-
-	function calculateNetAmount() {
-		var netAmount = 0;
-		$(".amount").each(function() {
-			if(!isNaN(this.value) && this.value.length!=0) {
-				netAmount += parseFloat(this.value);
-			}
-		});
-        document.getElementById('netAmount').value = netAmount.toFixed(2);
-	}
-</script>
-
 
 {{-- remove Net Amount --}}
 <script>
