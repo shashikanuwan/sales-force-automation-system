@@ -72,6 +72,9 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
     Route::get('customer-order/create', [CustomerOrderController::class, 'create'])
         ->name('customer-order.create');
 
+    Route::get('customer-order/invoice/{customerOrder}', [CustomerOrderController::class, 'invoice'])
+        ->name('customer-order.invoice');
+
     Route::post('customer-order/store', [CustomerOrderController::class, 'store'])
         ->name('customer-order.store');
 

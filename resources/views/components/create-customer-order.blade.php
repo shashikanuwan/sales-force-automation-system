@@ -49,22 +49,24 @@
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Product Code<span class="text-red-500">*</span></div>
+                                            <div class="font-semibold">Product Code></div>
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Quantity <span class="text-red-500">*</span>
+                                            <div class="font-semibold">Unit Price</div>
+                                        </th>
+
+                                        <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold">quantity <span class="text-red-500">*</span>
                                             </div>
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Free Issue <span class="text-red-500">*</span>
-                                            </div>
+                                            <div class="font-semibold">Free Issue</div>
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Amount<span class="text-red-500">*</span>
-                                            </div>
+                                            <div class="font-semibold">Amount</div>
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
@@ -91,6 +93,10 @@
 
                                         <td class="p-2 whitespace-nowrap">
                                             <input id="productCode_1" name="product_code" type="text" readonly class="product_code appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                        </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <input id="unitPrice_1" name="unit_price" type="text" readonly class="unit_price appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
@@ -150,6 +156,7 @@
             var tr = '<tr><td class="no">' + n + '</td>' +
                 '<td class="p-2 whitespace-nowrap"> <select name="product_ids[]" id="product_id_'+ n +'" onchange="getProductSku('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="productCode_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
+                '<td class="p-2 whitespace-nowrap"> <input id="unitPrice_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" type="number" onkeyup="getFreeIssue('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="freeIssue_'+ n +'" name="freeIssue" type="text" readonly class="freeIssue appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="amount_'+ n +'" name="amount" type="text" readonly class="amount appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
@@ -186,8 +193,9 @@
                 _token: "{{csrf_token()}}",
                 product_id:product
             },
-            success: function(productCode) {
-                document.getElementById('productCode_' + index).value = productCode;
+            success: function(data) {
+                document.getElementById('productCode_' + index).value = data.productCode;
+                document.getElementById('unitPrice_' + index).value = data.unitPrice;
                 $('#quantities_' + index).attr('readonly', false);
             }
         });

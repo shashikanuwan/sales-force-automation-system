@@ -47,8 +47,12 @@ class CustomerOrderController extends Controller
     {
         $product = Product::query()->where('id', $request->get('product_id'))->first();
         $productCode = $product->sku->code;
-
-        return response()->json($productCode);
+        $unitPrice = round($product->mrp, 2);
+        return response()
+            ->json([
+                'productCode' => $productCode,
+                'unitPrice' => $unitPrice
+            ]);
     }
 
     public function freeIssue(Request $request)
@@ -56,13 +60,14 @@ class CustomerOrderController extends Controller
         $product = Product::query()->where('id', $request->get('product_id'))->first();
         $quantity = intval($request->get('quantity'));
         $amount = round($product->mrp * $quantity, 2);
+
         $freeIssue = null;
 
         if ($request->ajax()) {
             if ($product->linefree) {
                 if ($product->linefree->type == "Flat") {
                     if ($product->linefree->lower_limit <= $quantity and $quantity <= $product->linefree->uper_limit) {
-                        $freeIssue =  $product->Linefree->free_quantity;
+                        $freeIssue =  $product->linefree->free_quantity;
                     } else {
                         $freeIssue = "No free issue";
                     }
@@ -78,7 +83,18 @@ class CustomerOrderController extends Controller
 
         return response([
             'freeIssue' => $freeIssue,
-            'amount' => $amount
+            'amount' => $amount,
         ]);
+    }
+
+    public function invoice(CustomerOrder $customerOrder)
+    {
+        return view('CustomerOrder.view')
+            ->with([
+                'customerOrder' => $customerOrder,
+                'customerOrderProducts' => CustomerOrderProduct::query()
+                    ->where('customer_order_id', $customerOrder->id)
+                    ->get()
+            ]);
     }
 }

@@ -21,4 +21,10 @@ class CustomerOrderProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // accessors
+    public function getTotalAttribute()
+    {
+        return $this->product->mrp * $this->quantity;
+    }
 }

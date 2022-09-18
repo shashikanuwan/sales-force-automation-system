@@ -35,6 +35,10 @@
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold">Net Amount</div>
                                 </th>
+
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold">View</div>
+                                </th>
                             </tr>
                         </thead>
 
@@ -88,6 +92,12 @@
                                                 Rs.{{ $total }}
                                             </div>
                                         </td>
+
+                                        <td class="p-2 whitespace-nowrap">
+                                            <a href="{{ route('customer-order.invoice', $customerOrder) }}" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">View</a>
+                                        </td>
+
+                                    </td>
                                     </tr>
                                 @empty
                                     <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 p-3 rounded relative my-6 w-full shadow"
