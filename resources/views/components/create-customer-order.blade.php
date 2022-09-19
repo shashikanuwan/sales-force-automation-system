@@ -49,7 +49,7 @@
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold">Product Code></div>
+                                            <div class="font-semibold">Product Code / Sku</div>
                                         </th>
 
                                         <th class="p-2 whitespace-nowrap">

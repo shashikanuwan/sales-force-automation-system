@@ -65,12 +65,6 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
 
         Route::post('customer-order/store', 'store')
             ->name('customer-order.store');
-
-        Route::post('product-sku', 'productSku')
-            ->name('product.sku');
-
-        Route::post('free-issue', 'freeIssue')
-            ->name('product.free.issue');
     });
 
     Route::post('customer-order-invoice', [CustomerInvoiceController::class, 'generateInvoice'])
@@ -89,6 +83,14 @@ Route::middleware(['auth', 'role:admin|distributor'])->group(function () {
 
     Route::get('export-excel', [ConversionController::class, 'exportExcel'])
         ->name('export.excel');
+
+    Route::controller(CustomerOrderController::class)->group(function () {
+        Route::post('product-sku', 'productSku')
+            ->name('product.sku');
+
+        Route::post('free-issue', 'freeIssue')
+            ->name('product.free.issue');
+    });
 });
 
 require __DIR__ . '/auth.php';
