@@ -27,4 +27,28 @@ class CustomerOrderProduct extends Model
     {
         return $this->product->mrp * $this->quantity;
     }
+
+    // accessors
+    public function getFreeIssueAttribute($quantity)
+    {
+        $freeIssue = null;
+
+        if ($this->product->linefree) {
+            if ($this->product->linefree->type == "Flat") {
+                if ($this->product->linefree->lower_limit <= $this->quantity and $this->quantity <= $this->product->linefree->uper_limit) {
+                    $freeIssue =  $this->product->linefree->free_quantity;
+                } else {
+                    $freeIssue = "No free issue";
+                }
+            } elseif ($this->product->linefree->lower_limit <= $this->quantity and $this->quantity <= $this->product->linefree->uper_limit) {
+                $freeIssue = intval($this->quantity / $this->product->linefree->purchase_quantity * $this->product->linefree->free_quantity);
+            } else {
+                $freeIssue = "No free issue";
+            }
+        } else {
+            $freeIssue = "Free Issue Not Created";
+        }
+
+        return $freeIssue;
+    }
 }

@@ -190,6 +190,7 @@
                         <th class="w-20">Product Name</th>
                         <th class="w-20">Available Quantity</th>
                         <th class="w-20">Order Quantity</th>
+                        <th class="w-20">Free Issue</th>
                         <th class="w-20">Unit Price</th>
                         <th class="w-20">Total Price</th>
                     </tr>
@@ -211,6 +212,8 @@
 
                             <td>{{ $customerOrderProduct->quantity }}</td>
 
+                            <td>{{ $customerOrderProduct->freeIssue }}</td>
+
                             <td>{{ $customerOrderProduct->product->mrp }}</td>
 
                             <td>{{ $customerOrderProduct->total }}</td>
@@ -225,7 +228,7 @@
                         }
                     @endphp
                     <tr>
-                        <td colspan="4" class="text-right">Grand Total</td>
+                        <td colspan="5" class="text-right">Grand Total</td>
                         <td> Rs.{{ $grandTotal }}</td>
                     </tr>
                 </tbody>

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\OrdersExport;
+use App\Http\Requests\InvoiceRequest;
 use App\Models\Order;
-use APP\Services\InvoiceService;
 use APP\Services\ZipperService;
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,17 +18,8 @@ class ConversionController extends Controller
             ->with(['order' => $order]);
     }
 
-    public function generateSingleInvoice(Order $order)
+    public function generateBulkInvoice(InvoiceRequest $request)
     {
-        $pdf = InvoiceService::generateInvoice($order);
-        return $pdf->download("{$order->number}.pdf");
-    }
-
-    public function generateBulkInvoice(Request $request)
-    {
-        $request->validate(['ids' => 'required',]);
-        Storage::deleteDirectory('public/order');
-
         $ids = $request->get('ids');
         $integerIDs = array_map('intval', $ids);
 
@@ -43,13 +34,15 @@ class ConversionController extends Controller
 
     private function StoreInvoice($integerIDs)
     {
-        for ($i = 0; $i < count($integerIDs); $i++) {
-            $orders =  Order::query()->where('id', $integerIDs[$i])->get();
+        Storage::deleteDirectory('public/order');
 
-            foreach ($orders as $key => $order) {
-                $pdf = InvoiceService::generateInvoice($order);
-                Storage::put('/public/order/invoice/' . "{$order->number}.pdf", $pdf->download());
-            }
+        for ($i = 0; $i < count($integerIDs); $i++) {
+            $order =  Order::query()->where('id', $integerIDs[$i])->first();
+
+            $data = ['order' => $order];
+            $pdf =  Pdf::loadView('Order.invoice', $data);
+
+            Storage::put('/public/order/invoice/' . "{$order->number}.pdf", $pdf->download());
         }
     }
 

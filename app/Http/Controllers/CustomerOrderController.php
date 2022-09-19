@@ -93,6 +93,7 @@ class CustomerOrderController extends Controller
             ->with([
                 'customerOrder' => $customerOrder,
                 'customerOrderProducts' => CustomerOrderProduct::query()
+                    ->with('product')
                     ->where('customer_order_id', $customerOrder->id)
                     ->get()
             ]);
