@@ -53,23 +53,25 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
         ->name('distributor.order.store');
 
     //customer order
-    Route::get('customer-order', [CustomerOrderController::class, 'index'])
-        ->name('customer-order.index');
+    Route::controller(CustomerOrderController::class)->group(function () {
+        Route::get('customer-order', 'index')
+            ->name('customer-order.index');
 
-    Route::get('customer-order/create', [CustomerOrderController::class, 'create'])
-        ->name('customer-order.create');
+        Route::get('customer-order/create', 'create')
+            ->name('customer-order.create');
 
-    Route::get('customer-order/invoice/{customerOrder}', [CustomerOrderController::class, 'invoice'])
-        ->name('customer-order.invoice');
+        Route::get('customer-order/invoice/{customerOrder}', 'invoice')
+            ->name('customer-order.invoice');
 
-    Route::post('customer-order/store', [CustomerOrderController::class, 'store'])
-        ->name('customer-order.store');
+        Route::post('customer-order/store', 'store')
+            ->name('customer-order.store');
 
-    Route::post('product-sku', [CustomerOrderController::class, 'productSku'])
-        ->name('product.sku');
+        Route::post('product-sku', 'productSku')
+            ->name('product.sku');
 
-    Route::post('free-issue', [CustomerOrderController::class, 'freeIssue'])
-        ->name('product.free.issue');
+        Route::post('free-issue', 'freeIssue')
+            ->name('product.free.issue');
+    });
 
     Route::post('customer-order-invoice', [CustomerInvoiceController::class, 'generateInvoice'])
         ->name('customer-order-invoice.generate');

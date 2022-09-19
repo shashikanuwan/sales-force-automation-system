@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\CustomerOrder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class FetchCustomerOrder extends Component
@@ -13,6 +14,7 @@ class FetchCustomerOrder extends Component
     public function __construct()
     {
         $this->customerOrders = CustomerOrder::query()
+            ->ofThisUser(Auth::user())
             ->with('customerOrderProducts.product')
             ->orderBy('id', 'DESC')
             ->get();

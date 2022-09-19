@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Helper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,5 +35,13 @@ class CustomerOrder extends Model
         $this->customer_id = $customerId;
         $this->deliver_date = $deliverDate;
         $this->save();
+    }
+
+    //scopes
+    public function scopeOfThisUser(Builder $query, User $distributor)
+    {
+        $query->whereHas('customer', function (Builder $query) use ($distributor) {
+            $query->where('user_id', $distributor->id);
+        });
     }
 }
