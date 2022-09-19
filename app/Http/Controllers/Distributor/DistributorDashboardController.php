@@ -14,7 +14,7 @@ class DistributorDashboardController extends Controller
             ->with([
                 'orders' =>  Order::query()
                     ->where('user_id', $request->user()->id)
-                    ->with('user.territory', 'sku.product')
+                    ->with('distributorOrderProducts.product')
                     ->orderBy('id', 'DESC')
                     ->paginate(10)
             ]);

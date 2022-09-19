@@ -55,6 +55,7 @@
         .text-white {
             color: #fff;
         }
+
         .text-red {
             color: rgb(231, 10, 10);
         }
@@ -144,72 +145,82 @@
         <div class="body-section">
             <div class="row">
                 <div class="col-6">
-                    <h2 class="heading">Invoice ID : INV-{{$order->id}}{{$order->user->id}}{{$order->sku->product->id}}</h2>
-                    <p class="sub-heading"><b>Order Date:</b> {{$order->created_at->format('Y/m/d')}} </p>
-                    <p class="sub-heading"><b>Delivery Date:</b> {{$order->deliver_date}} </p>
+                    <h2 class="heading">Order</h2>
+                    <p class="sub-heading"><b>Invoice ID : </b> INV-{{ $order->id }}{{ $order->user->id }}</p>
+                    <p class="sub-heading"><b>Purchase Order Number : </b> {{ $order->number }}</p>
+                    <p class="sub-heading"><b>Order Date:</b> {{ $order->created_at->format('Y/m/d') }} </p>
+                    <p class="sub-heading"><b>Delivery Date:</b> {{ $order->deliver_date }} </p>
                 </div>
+
+
                 <div class="col-6">
                     <h2 class="heading">Distributor</h2>
-                    <p class="sub-heading"><b>Name : </b> {{$order->user->name}}</p>
-                    <p class="sub-heading"><b>Address :</b> {{$order->user->address}}</p>
-                    <p class="sub-heading"><b>Phone Number :</b> {{$order->user->phone_number}}</p>
-                    <p class="sub-heading"><b>Zone, Region, Territory :</b> {{$order->user->territory->region->zone->name}}, {{$order->user->territory->region->name}}, {{$order->user->territory->name}}</p>
+                    <p class="sub-heading"><b>Name : </b> {{ $order->user->name }}</p>
+                    <p class="sub-heading"><b>Address :</b> {{ $order->user->address }}</p>
+                    <p class="sub-heading"><b>Phone Number :</b> {{ $order->user->phone_number }}</p>
+                    <p class="sub-heading"><b>Zone, Region, Territory :</b>
+                        {{ $order->user->territory->region->zone->name }},
+                        {{ $order->user->territory->region->name }},
+                        {{ $order->user->territory->name }}</p>
                 </div>
             </div>
         </div>
-
         <div class="body-section">
             <h3 class="heading">Ordered Items</h3>
             <br>
             <table class="table-bordered">
                 <thead>
                     <tr>
-                        <th class="w-20">Purchase Order Number</th>
                         <th class="w-20">Product Name</th>
                         <th class="w-20">Available Quantity</th>
                         <th class="w-20">Order Quantity</th>
-                        <th class="w-20">Product Price</th>
+                        <th class="w-20">Free Issue</th>
+                        <th class="w-20">Unit Price</th>
+                        <th class="w-20">Total Price</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($distributorOrderProducts as $distributorOrderProduct)
+                        <tr>
+                            <td>{{ $distributorOrderProduct->product->name }}</td>
+
+                            <td>
+                                @if ($distributorOrderProduct->product->quantity > 0)
+                                    <div>{{ $distributorOrderProduct->product->quantity }}</div>
+                                @else
+                                    <div class="text-red">Out of Stock</div>
+                                @endif
+                            </td>
+
+                            <td>{{ $distributorOrderProduct->quantity }}</td>
+
+                            <td>{{ $distributorOrderProduct->freeIssue }}</td>
+
+                            <td>{{ $distributorOrderProduct->product->mrp }}</td>
+
+                            <td>{{ $distributorOrderProduct->total }}</td>
+                        </tr>
+                    @empty
+                    @endforelse
+
+                    @php
+                        $grandTotal = 0;
+                        foreach ($distributorOrderProducts as $distributorOrderProduct) {
+                            $grandTotal = $grandTotal + $distributorOrderProduct->total;
+                        }
+                    @endphp
                     <tr>
-                        <td>{{ $order->number }}</td>
-
-                        <td>{{ $order->sku->product->name }}</td>
-
-                        <td>
-                            @if ($order->sku->product->quantity > 0)
-                                <div>{{ $order->sku->product->quantity }}</div>
-                            @else
-                                <div class="text-red">Out of Stock</div>
-                            @endif
-                        </td>
-
-                        <td>{{ $order->quantity }}</td>
-
-                        <td>Rs.{{ $order->sku->product->mrp }}</td>
+                        <td colspan="5" class="text-right">Grand Total</td>
+                        <td> Rs.{{ $grandTotal }}</td>
                     </tr>
-
-                    <tr>
-                        <td colspan="4" class="text-right">Sub Total</td>
-                        <td> {{ $order->sku->product->mrp }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="text-right">Sub Total * Quantity</td>
-                        <td> {{ $order->sku->product->mrp}} * {{$order->quantity }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="text-right">Grand Total</td>
-                        <td> Rs.{{ $order->sku->product->mrp * $order->quantity }}</td>
-                    </tr
                 </tbody>
             </table>
             <br>
-            <h3 class="heading">Deliver Status: {{$order->status}}</h3>
+            <h3 class="heading">Deliver Status: {{ $order->status }}</h3>
         </div>
 
         <div class="body-section">
-            <p>&copy; {{\Carbon\Carbon::now()->format('Y')}} - Company Name, All rights reserved.
+            <p>&copy; {{ \Carbon\Carbon::now()->format('Y') }} - Company Name, All rights reserved.
                 <a href="" class="float-right">www.example.com</a>
             </p>
         </div>

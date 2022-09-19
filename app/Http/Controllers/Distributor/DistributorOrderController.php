@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Distributor;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Distributor\DistributorOrderRequest;
 use App\Http\Requests\Distributor\DistributorRequest;
+use App\Models\DistributorOrderProduct;
 use App\Models\Order;
 
 class DistributorOrderController extends Controller
@@ -16,18 +18,23 @@ class DistributorOrderController extends Controller
 
     public function store(DistributorOrderRequest $request)
     {
+        $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
+
+        $order = new Order();
+        $order->number = $number;
+        $order->remark = request()->get('remark');
+        $order->deliver_date = request()->get('deliver_date');
+        $order->user_id = $request->user()->id;
+        $order->save();
+
         $data = $request->get('quantities');
 
         for ($i = 0; $i < count($data); $i++) {
-
-            $order = new Order();
-            $order->createOrder(
-                $request->get('remarks')[$i],
-                $request->get('quantities')[$i],
-                $request->user()->id,
-                $request->get('sku_ids')[$i],
-                $request->get('deliver_dates')[$i]
-            );
+            $distributorOrderProduct = new   DistributorOrderProduct();
+            $distributorOrderProduct->quantity = $request->get('quantities')[$i];
+            $distributorOrderProduct->product_id = request('product_ids')[$i];
+            $distributorOrderProduct->order_id = $order->id;
+            $distributorOrderProduct->save();
         }
 
         return redirect()

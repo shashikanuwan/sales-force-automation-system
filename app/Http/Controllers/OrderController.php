@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\OrderRequest;
+use App\Http\Requests\Admin\UpdateOrderRequest;
+use App\Models\DistributorOrderProduct;
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -13,7 +16,7 @@ class OrderController extends Controller
         return view('Order.index')
             ->with([
                 'orders' =>  Order::query()
-                    ->with(['sku.product', 'user.territory.region'])
+                    ->with('user.territory', 'distributorOrderProducts.product')
                     ->orderBy('id', 'DESC')
                     ->paginate(10)
             ]);
@@ -26,18 +29,23 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
+        $number = Helper::IDGenerator(new Order(), 'number', 2, 'ODR');
+
+        $order = new Order();
+        $order->number = $number;
+        $order->remark = request()->get('remark');
+        $order->deliver_date = request()->get('deliver_date');
+        $order->user_id = request()->get('user_id');
+        $order->save();
+
         $data = $request->get('quantities');
 
         for ($i = 0; $i < count($data); $i++) {
-
-            $order = new Order();
-            $order->createOrder(
-                $request->get('remarks')[$i],
-                $request->get('quantities')[$i],
-                $request->get('user_ids')[$i],
-                $request->get('sku_ids')[$i],
-                $request->get('deliver_dates')[$i]
-            );
+            $distributorOrderProduct = new   DistributorOrderProduct();
+            $distributorOrderProduct->quantity = $request->get('quantities')[$i];
+            $distributorOrderProduct->product_id = request('product_ids')[$i];
+            $distributorOrderProduct->order_id = $order->id;
+            $distributorOrderProduct->save();
         }
 
         return redirect()
@@ -57,7 +65,7 @@ class OrderController extends Controller
             ->with(['order' => $order,]);
     }
 
-    public function update(OrderRequest $request,  Order $order)
+    public function update(UpdateOrderRequest $request,  Order $order)
     {
         $order->update($request->validated());
 

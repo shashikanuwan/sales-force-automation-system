@@ -3,14 +3,14 @@
 namespace App\View\Components;
 
 use App\Models\Order;
-use App\Models\Sku;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
 class EditOrder extends Component
 {
-    public Collection $skus;
+    public Collection $products;
     public Collection $users;
     public Order $order;
 
@@ -18,8 +18,7 @@ class EditOrder extends Component
     {
         $this->order = $order;
 
-        $this->skus = Sku::query()
-            ->with(['product'])
+        $this->products = Product::query()
             ->get();
 
         $this->users = User::query()

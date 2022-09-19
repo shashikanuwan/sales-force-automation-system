@@ -18,6 +18,7 @@ class DistributorUpdateRequest extends FormRequest
         $unique = Rule::unique('users')->ignore($this->distributor->id);
         return [
             'name' => 'required|string',
+            'territory_id' => 'required|exists:territories,id',
             'user_name' => ['required', 'string', 'regex:/^[A-Za-z0-9-]+$/', $unique],
             'nic' => ['required', 'min:10', 'max:12', 'string', 'regex:/^[A-Za-z0-9_]+$/', $unique],
             'address' => ['required', 'string', $unique],

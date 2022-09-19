@@ -20,29 +20,12 @@
                     </div>
 
                     <div class="mt-5 md:mt-2">
-                        <label for="">Quantity <span class="text-red-500">*</span></label>
-                        <input id="quantity" name="quantity" type="text" value="{{$order->quantity}}" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
-
-                    <div class="mt-5 md:mt-2">
                         <label for="">Select (Distributor / territory) <span class="text-red-500">*</span></label>
                         <select name="user_id" id="user_id" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
                             <option selected value="{{$order->user_id}}">{{$order->user->name}}</option>
                             @foreach ($users as $user)
                             <option value="{{ $user->id }}">
                                 {{ $user->name }} / {{ $user->territory->name }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mt-5 md:mt-2">
-                        <label for="">Select (SKU / Product) <span class="text-red-500">*</span></label>
-                        <select name="sku_id" id="sku_id" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
-                            <option selected value="{{$order->sku_id}}">{{$order->sku->code}}</option>
-                            @foreach ($skus as $sku)
-                            <option value="{{ $sku->id }}">
-                                {{ $sku->code }} / {{ $sku->product->name }}
                             </option>
                             @endforeach
                         </select>

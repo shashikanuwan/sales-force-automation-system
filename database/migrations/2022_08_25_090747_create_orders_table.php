@@ -13,11 +13,9 @@ return new class extends Migration
             $table->id();
             $table->string('number');
             $table->string('remark')->nullable();
-            $table->integer('quantity');
             $table->dateTime('deliver_date');
             $table->string('status')->default(Order::PENDING);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sku_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

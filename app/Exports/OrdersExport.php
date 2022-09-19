@@ -19,16 +19,12 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             '#',
-            'UPurchase Order Numberser',
-            'Region',
-            'Territory',
-            'Distributor',
+            'Purchase Order Numberser',
+            'distributor Name',
+            'distributor Territory',
             'Order Date & Time',
             'Deliver Date',
             'Delivery Status',
-            'Product Name',
-            'Available Quantity',
-            'Order Quantity',
             'Total Amount',
         ];
     }
@@ -41,16 +37,12 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
         return [
             $order->id,
             $order->number,
-            $order->user->territory->region->name,
-            $order->user->territory->name,
             $order->user->name,
+            $order->user->territory->name,
             Date::dateTimeToExcel($order->created_at),
             $order->deliver_date,
             $order->status,
-            $order->sku->product->name,
-            $order->sku->product->quantity,
-            $order->quantity,
-            $order->sku->product->mrp * $order->quantity,
+            $order->totalPrice,
         ];
     }
 }

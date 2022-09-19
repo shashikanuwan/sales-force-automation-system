@@ -83,9 +83,9 @@
                                         <td class="p-2 whitespace-nowrap">
                                             <select name="product_ids[]" onchange="getProductSku(1)" id="product_id_1" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required>
                                                 <option selected disabled>Select Product</option>
-                                                @foreach ($orders as $order)
-                                                    <option value="{{ $order->sku->product->id }}">
-                                                        {{ $order->sku->product->name }}
+                                                @foreach ($distributorOrderProducts as $distributorOrderProduct)
+                                                    <option value="{{ $distributorOrderProduct->product->id }}">
+                                                        {{ $distributorOrderProduct->product->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -154,7 +154,7 @@
             var value = $('#product_count').val();
             $('#product_count').val(value+1);
             var tr = '<tr><td class="no">' + n + '</td>' +
-                '<td class="p-2 whitespace-nowrap"> <select name="product_ids[]" id="product_id_'+ n +'" onchange="getProductSku('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($orders as $order) <option value="{{ $order->sku->product->id }}"> {{ $order->sku->product->name }} </option> @endforeach </select> </td>' +
+                '<td class="p-2 whitespace-nowrap"> <select name="product_ids[]" id="product_id_'+ n +'" onchange="getProductSku('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" required> <option selected disabled>Select Product</option> @foreach ($distributorOrderProducts as $distributorOrderProduct) <option value="{{ $distributorOrderProduct->product->id }}"> {{ $distributorOrderProduct->product->name }} </option> @endforeach </select> </td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="productCode_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="unitPrice_'+ n +'" type="text" readonly class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +
                 '<td class="p-2 whitespace-nowrap"> <input id="quantities_'+ n +'" name="quantities[]" type="number" onkeyup="getFreeIssue('+ n +')" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"></td>' +

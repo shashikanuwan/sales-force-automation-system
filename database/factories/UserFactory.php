@@ -12,7 +12,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'nic' => $this->faker->randomNumber(),
+            'nic' => $this->faker->unique()->randomNumber(),
             'address' => $this->faker->address,
             'phone_number' => $this->faker->unique()->phoneNumber,
             'email' => fake()->safeEmail(),
