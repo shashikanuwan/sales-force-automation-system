@@ -127,8 +127,6 @@
                                             </div>
                                         </td>
 
-
-
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="mt-2">
                                                 <a href="{{ route('invoice.index', $order) }}"
