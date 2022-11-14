@@ -8,7 +8,7 @@ First enable gd extension in XAMPP, WAMP etc
 
 Then clone this repository
 
-    cd laravel-test-project
+    cd sales-force-automation-system
 
 Then install a compiler
 
